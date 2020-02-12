@@ -1,0 +1,37 @@
+<div class="popup-wrapper">
+  <div class="product-form">
+    <h2 class="product-form-title">{{ data.title }}</h2>
+    <label class="product-form-label">Product name</label>
+    <input
+      class="product-form-input"
+      type="text"
+      name="name"
+      placeholder="Product name"
+    />
+    <label class="product-form-label">Description</label>
+    <textarea
+      class="product-form-input"
+      type="text"
+      name="description"
+      placeholder="Description"
+    ></textarea>
+    <label class="product-form-label">Price</label>
+    <input
+      class="product-form-input"
+      type="number"
+      name="price"
+      placeholder="Price"
+    />
+    <label class="product-form-label">Status</label>
+    <select class="product-form-select" name="status">
+      <option value="1">Disabled</option>
+      <option value="2">Enabled</option>
+    </select>
+  </div>
+
+  <div class="btnWrapp">
+    <button class="btn-inv" (click)="closeBtnYes()">Add product</button>
+
+    <button class="btn-inv" (click)="closeBtn()">Cancel</button>
+  </div>
+</div>

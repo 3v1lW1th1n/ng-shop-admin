@@ -1,32 +1,44 @@
 import { MatTooltipModule } from '@angular/material/tooltip';
-// import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductsDialogComponent } from '../content/products/products-dialog/products-dialog.component';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatDialogModule,
+} from '@angular/material/dialog';
 @NgModule({
-  declarations: [],
-  entryComponents: [],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTooltipModule,
-    // MatGridTile,
-    // MatGridListModule,
-  ],
+  declarations: [ProductsDialogComponent],
+  entryComponents: [ProductsDialogComponent],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    // MatGridTile,
-    // MatGridListModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatDialogModule,
+    MatInputModule,
+    MatGridListModule,
   ],
+  imports: [MatGridListModule],
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
+      providers: [
+        {
+          provide: MAT_DIALOG_DEFAULT_OPTIONS,
+          useValue: { hasBackdrop: false },
+        },
+      ],
     };
   }
 }
