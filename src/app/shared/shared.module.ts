@@ -12,6 +12,11 @@ import {
   MAT_DIALOG_DEFAULT_OPTIONS,
   MatDialogModule,
 } from '@angular/material/dialog';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
+import { BASE_URL_TOKEN } from '../config';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [ProductsDialogComponent],
   entryComponents: [ProductsDialogComponent],
@@ -28,6 +33,13 @@ import {
     MatGridListModule,
   ],
   imports: [MatGridListModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {
@@ -37,6 +49,10 @@ export class SharedModule {
         {
           provide: MAT_DIALOG_DEFAULT_OPTIONS,
           useValue: { hasBackdrop: false },
+        },
+        {
+          provide: BASE_URL_TOKEN,
+          useValue: environment.baseUrl,
         },
       ],
     };
