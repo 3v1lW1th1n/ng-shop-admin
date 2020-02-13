@@ -11,8 +11,19 @@ export interface IProduct {
 @Injectable()
 export class ProductsService {
   constructor(private http: HttpClient) {}
+  public token: string;
 
   public get getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`/products`);
+  }
+  public addProducts(product: IProduct): Observable<IProduct> {
+    return this.http.post<IProduct>(`/products`, product);
+  }
+  public editProducts(product: IProduct): Observable<IProduct> {
+    const { _id, ...body } = product;
+    return this.http.put<IProduct>(`/products/${_id}`, body);
+  }
+  public deleteProducts(product: IProduct): Observable<IProduct> {
+    return this.http.delete<IProduct>(`/products/${product._id}`);
   }
 }

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './content/sidebar/sidebar.component';
+import { ModalModule } from './content/modal/modal.module';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent],
@@ -12,7 +13,8 @@ import { SidebarComponent } from './content/sidebar/sidebar.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule,
+    ModalModule.forRoot(),
+    SharedModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

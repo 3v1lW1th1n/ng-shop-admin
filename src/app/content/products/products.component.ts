@@ -1,28 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ProductsService,
+  IProduct,
+} from './../../shared/services/products.service';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Injector,
+  ComponentFactoryResolver,
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
+import { ModalService } from '../modal/modal.service';
 
-export interface PeriodicElement {
-  name: string;
-  description: string;
-  price: number;
-  status: boolean;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Hydrogen', description: 'bla bla', price: 1, status: true },
-  { name: 'Helium', description: 'bla bla', price: 4, status: true },
-  { name: 'Lithium', description: 'bla blabla bla', price: 6, status: true },
-  { name: 'Beryllium', description: 'bla bla bla', price: 9, status: false },
-  { name: 'Boron', description: 'bla bla', price: 10, status: false },
-];
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.sass'],
+  providers: [ProductsService],
 })
 export class ProductsComponent implements OnInit {
+  @Input()
+  public product: IProduct;
   displayedColumns: string[] = [
     'name',
     'description',
@@ -30,30 +31,69 @@ export class ProductsComponent implements OnInit {
     'status',
     'controls',
   ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource([]);
+  public sort: MatSort;
+  public data: any;
+  constructor(
+    private productsService: ProductsService,
+    private _modalService: ModalService,
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private _injector: Injector,
+  ) {}
 
-  constructor(private dialog: MatDialog) {}
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  ngOnInit() {
+  @ViewChild(MatSort, { static: false }) set matSort(mp: MatSort) {
+    this.sort = mp;
     this.dataSource.sort = this.sort;
   }
-  public addProduct() {
-    this.dialog.open(ProductsDialogComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container',
-      data: {
-        title: 'Add product',
-      },
+
+  ngOnInit() {
+    this.productsService.getProducts.subscribe(data => {
+      this.data = data;
+      this.dataSource = new MatTableDataSource(this.data);
     });
   }
-  public editProduct() {
-    this.dialog.open(ProductsDialogComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container',
-      data: {
-        title: 'Edit product',
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  public deleteProduct(product: IProduct): void {
+    // console.log(product._id);
+    this.productsService.deleteProducts(product).subscribe(data => {
+      const index = this.data.findIndex(data => data._id === product._id);
+      // console.log(index);
+      this.data.splice(index, 1);
+      this.dataSource = new MatTableDataSource(this.data);
+    });
+  }
+
+  public editProduct(product?: IProduct): void {
+    this._modalService.open({
+      component: ProductsDialogComponent,
+      resolver: this._componentFactoryResolver,
+      injector: this._injector,
+      context: {
+        product,
+        save: ({ isEdit, value }) => {
+          if (isEdit) {
+            this.productsService
+              .editProducts({ ...product, ...value })
+              .subscribe((p: IProduct) => {
+                const index = this.data.findIndex(v => v._id === p._id);
+                this.data.splice(index, 1, p);
+                this.dataSource = new MatTableDataSource(this.data);
+              });
+            this._modalService.close();
+            return;
+          }
+          this.productsService.addProducts(value).subscribe(p => {
+            this.data.push(p);
+            this.dataSource = new MatTableDataSource(this.data);
+          });
+          this._modalService.close();
+        },
+        close: () => {
+          this._modalService.close();
+        },
       },
     });
   }
