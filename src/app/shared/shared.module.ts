@@ -8,18 +8,16 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsDialogComponent } from '../content/products/products-dialog/products-dialog.component';
-import {
-  MAT_DIALOG_DEFAULT_OPTIONS,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
 import { environment } from 'src/environments/environment';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [ProductsDialogComponent],
-  entryComponents: [ProductsDialogComponent],
+  declarations: [],
+  entryComponents: [],
   exports: [
     CommonModule,
     FormsModule,
@@ -28,11 +26,12 @@ import { environment } from 'src/environments/environment';
     MatIconModule,
     MatTableModule,
     MatSortModule,
-    MatDialogModule,
+
     MatInputModule,
     MatGridListModule,
+    MatPaginatorModule,
   ],
-  imports: [MatGridListModule],
+  imports: [MatGridListModule, HttpClientModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -46,10 +45,6 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        {
-          provide: MAT_DIALOG_DEFAULT_OPTIONS,
-          useValue: { hasBackdrop: false },
-        },
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,

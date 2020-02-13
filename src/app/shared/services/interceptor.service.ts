@@ -14,6 +14,8 @@ export interface IRes {
   data: any;
   error?: string;
 }
+const accessToken: string =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN0cmluZyIsImlhdCI6MTU4MTUxOTA1OH0.Bci3pCF40E_cWHeCM3FG7ZT6acsFKkOznsRlrBcuv-g';
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
   constructor(@Inject(BASE_URL_TOKEN) private _baseUrl: string) {}
@@ -22,10 +24,11 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<T>,
     next: HttpHandler,
   ): Observable<HttpResponse<T>> {
-    const headers: HttpHeaders = req.headers.append(
+    let headers: HttpHeaders = req.headers.append(
       'Content-Type',
       'application/json',
     );
+    headers = headers.append('Authorization', `Bearer ${accessToken}`);
     const jsonReq: HttpRequest<T> = req.clone({
       headers,
       url: `${this._baseUrl}${req.url}`,

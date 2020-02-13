@@ -1,37 +1,44 @@
-<div class="popup-wrapper">
+<form [formGroup]="form" class="popup-wrapper">
   <div class="product-form">
-    <h2 class="product-form-title">{{ data.title }}</h2>
+    <h2 class="product-form-title" *ngIf="!isEdit">Add product</h2>
+    <h2 class="product-form-title" *ngIf="isEdit">Edit product</h2>
     <label class="product-form-label">Product name</label>
     <input
+      formControlName="name"
       class="product-form-input"
       type="text"
-      name="name"
       placeholder="Product name"
     />
     <label class="product-form-label">Description</label>
     <textarea
+      formControlName="description"
       class="product-form-input"
       type="text"
-      name="description"
       placeholder="Description"
     ></textarea>
     <label class="product-form-label">Price</label>
     <input
+      formControlName="price"
       class="product-form-input"
       type="number"
-      name="price"
       placeholder="Price"
     />
     <label class="product-form-label">Status</label>
-    <select class="product-form-select" name="status">
-      <option value="1">Disabled</option>
-      <option value="2">Enabled</option>
+    <select formControlName="status" class="product-form-select">
+      <option [value]="true">Enabled</option>
+      <option [value]="false">Disabled</option>
     </select>
   </div>
 
   <div class="btnWrapp">
-    <button class="btn-inv" (click)="closeBtnYes()">Add product</button>
+    <button
+      class="btn-inv"
+      [disabled]="form.invalid"
+      (click)="save({ isEdit: isEdit, value: form.value })"
+    >
+      Save
+    </button>
 
-    <button class="btn-inv" (click)="closeBtn()">Cancel</button>
+    <button class="btn-inv" (click)="close()">Cancel</button>
   </div>
-</div>
+</form>

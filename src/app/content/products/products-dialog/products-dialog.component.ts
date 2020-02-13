@@ -1,43 +1,27 @@
-// import { AbstractForm } from '@shared/form-helper';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-products-dialog',
   templateUrl: './products-dialog.component.html',
   styleUrls: ['./products-dialog.component.sass'],
 })
-export class ProductsDialogComponent implements OnInit {
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<ProductsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    // super();
+export class ProductsDialogComponent {
+  @Input()
+  public set product(value) {
+    if (!value) {
+      return;
+    }
+    this.isEdit = true;
+    this.form.patchValue(value);
   }
-  ngOnInit() {
-    // this.form = this.fb.group(
-    //   {
-    //     name: [''],
-    //     description: [''],
-    //     price: [''],
-    //     status: [''],
-    //   },
-    // );
-    // if (this.data) {
-    //   this.form.patchValue({
-    //     name: this.data.name,
-    //     description: this.data.description,
-    //     price: this.data.price,
-    //     status: this.data.status,
-    //    });
-    // }
-  }
-  public closeBtn() {
-    this.dialogRef.close(false);
-  }
-  public closeBtnYes() {
-    this.dialogRef.close(true);
-  }
+
+  public isEdit = false;
+
+  public form: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+    price: ['', Validators.required],
+    status: ['', Validators.required],
+  });
+  constructor(private fb: FormBuilder) {}
 }
