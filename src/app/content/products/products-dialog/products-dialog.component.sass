@@ -6,7 +6,7 @@
     position: relative
     border-radius: 10px
     text-align: center
-    padding: 20px
+    padding: 20px 30px 10px 10px
     border-radius: 10px
     box-sizing: border-box
     width: 600px
@@ -29,6 +29,16 @@
             line-height: 20px
             color: #707683
             margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
         &-input
             width: 100%
             background-color: #fff
@@ -41,6 +51,7 @@
             color: #334d6e
             outline: none
             margin-bottom: 15px
+
         &-select
             width: 105%
             background-color: #fff
