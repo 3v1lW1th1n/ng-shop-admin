@@ -22,7 +22,7 @@ jobs:
       - name: build
         run: |
           npm install
-          npm run build
+          npm run build -- --configuration=production
         env:
           CI: true
       - name: Deploy
@@ -30,4 +30,4 @@ jobs:
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./
+          PUBLISH_DIR: ./dist
