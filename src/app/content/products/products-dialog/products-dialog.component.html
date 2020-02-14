@@ -1,0 +1,44 @@
+<form [formGroup]="form" class="popup-wrapper">
+  <div class="product-form">
+    <h2 class="product-form-title" *ngIf="!isEdit">Add product</h2>
+    <h2 class="product-form-title" *ngIf="isEdit">Edit product</h2>
+    <label class="product-form-label">Product name</label>
+    <input
+      formControlName="name"
+      class="product-form-input"
+      type="text"
+      placeholder="Product name"
+    />
+    <label class="product-form-label">Description</label>
+    <textarea
+      formControlName="description"
+      class="product-form-input"
+      type="text"
+      placeholder="Description"
+    ></textarea>
+    <label class="product-form-label">Price</label>
+    <input
+      formControlName="price"
+      class="product-form-input"
+      type="number"
+      placeholder="Price"
+    />
+    <label class="product-form-label">Status</label>
+    <select formControlName="status" class="product-form-select">
+      <option [value]="true">Enabled</option>
+      <option [value]="false">Disabled</option>
+    </select>
+  </div>
+
+  <div class="btnWrapp">
+    <button
+      class="btn-inv"
+      [disabled]="form.invalid"
+      (click)="save({ isEdit: isEdit, value: form.value })"
+    >
+      Save
+    </button>
+
+    <button class="btn-inv" (click)="close()">Cancel</button>
+  </div>
+</form>
