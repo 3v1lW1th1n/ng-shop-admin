@@ -8,6 +8,7 @@ import {
   Type,
   ViewChild,
   ViewContainerRef,
+  ComponentFactoryResolver,
 } from '@angular/core';
 import { ModalService } from './modal.service';
 
@@ -27,7 +28,8 @@ export class ModalComponent implements OnInit {
   public component!: Type<any>;
 
   public constructor(
-    private _modalService: ModalService, // private _cfr: ComponentFactoryResolver
+    private _modalService: ModalService,
+    private _cfr: ComponentFactoryResolver,
   ) {}
 
   public ngOnInit(): void {
@@ -40,7 +42,7 @@ export class ModalComponent implements OnInit {
         this.isOpen = true;
         // this.childComponent = resolver.resolveComponentFactory(component);
         // this.component = component;
-        this.childComponent = resolver.resolveComponentFactory(component);
+        this.childComponent = this._cfr.resolveComponentFactory(component);
         // this.refInjector = Injector.create({
         //   providers: [{provide: component, useValue: component}],
         //   parent: injector,

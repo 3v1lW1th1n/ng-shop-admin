@@ -8,6 +8,5 @@ import { ProductsDialogComponent } from './products-dialog/products-dialog.compo
   declarations: [ProductsComponent, ProductsDialogComponent],
   imports: [ProductsRoutingModule, SharedModule],
   exports: [SharedModule],
-  entryComponents: [ProductsDialogComponent],
 })
 export class ProductsModule {}

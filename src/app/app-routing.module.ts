@@ -12,6 +12,13 @@ const routes: Routes = [
             mod => mod.ProductsModule,
           ),
       },
+      {
+        path: 'categories',
+        loadChildren: () =>
+          import('./content/categories/categories.module').then(
+            mod => mod.CategoriesModule,
+          ),
+      },
     ],
   },
 ];

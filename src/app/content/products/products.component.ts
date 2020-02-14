@@ -37,8 +37,6 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
-    private _componentFactoryResolver: ComponentFactoryResolver,
-    private _injector: Injector,
   ) {}
 
   @ViewChild(MatSort, { static: false }) set matSort(mp: MatSort) {
@@ -57,10 +55,8 @@ export class ProductsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   public deleteProduct(product: IProduct): void {
-    // console.log(product._id);
     this.productsService.deleteProducts(product).subscribe(data => {
       const index = this.data.findIndex(data => data._id === product._id);
-      // console.log(index);
       this.data.splice(index, 1);
       this.dataSource = new MatTableDataSource(this.data);
     });
@@ -69,8 +65,6 @@ export class ProductsComponent implements OnInit {
   public editProduct(product?: IProduct): void {
     this._modalService.open({
       component: ProductsDialogComponent,
-      resolver: this._componentFactoryResolver,
-      injector: this._injector,
       context: {
         product,
         save: ({ isEdit, value }) => {
