@@ -15,6 +15,7 @@ import { BASE_URL_TOKEN } from '../config';
 import { environment } from 'src/environments/environment';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ValidatorsService } from './services/validators.service';
+import { ProductsService } from './services/products.service';
 
 @NgModule({
   declarations: [],
@@ -47,6 +48,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         ValidatorsService,
+        ProductsService,
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,

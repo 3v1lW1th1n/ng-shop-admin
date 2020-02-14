@@ -1,19 +1,20 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { Injectable } from '@angular/core';
-import { ValidationErrors, FormGroup } from '@angular/forms';
+import { ValidationErrors, FormGroup, FormControl } from '@angular/forms';
+import { ProductsService } from './products.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ValidatorsService {
-  public nameValidator(control: FormGroup): ValidationErrors | null {
-    const { name } = control.value;
-    console.log(name);
-    return name !== name ? { isNotMatch: true } : null;
+  constructor(public productsService: ProductsService) {}
+  public data: any;
+  public isValid: any;
+  public nameValidator({ value }: FormControl) {
+    const isInvalid =
+      value.toLowerCase() === 'samsung'.toLowerCase()
+        ? { nameExist: true }
+        : null;
+    console.log(isInvalid);
+    return of(isInvalid);
   }
-  // public actualDate(control: FormGroup): ValidationErrors | null {
-  //   const { date } = control.value;
-  //   if (new Date(date).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)) {
-  //     return { isInvalid: true };
-  //   } else {
-  //     return null;
-  //   }
-  // }
 }

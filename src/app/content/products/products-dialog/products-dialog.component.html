@@ -3,12 +3,20 @@
     <h2 class="product-form-title" *ngIf="!isEdit">Add product</h2>
     <h2 class="product-form-title" *ngIf="isEdit">Edit product</h2>
     <label class="product-form-label">Product name</label>
+
     <input
       formControlName="name"
       class="product-form-input"
       type="text"
       placeholder="Product name"
     />
+    <!-- {{ name.errors?.isInvalid | json }} -->
+    <!-- <div *ngIf="name.errors?.isInvalid === null" class="valid-date-error">
+      2222
+    </div> -->
+    <!-- <div *ngIf="form.errors?.isInvalid.nameExist" class="valid-date-error">
+      1111
+    </div> -->
     <label class="product-form-label">Description</label>
     <textarea
       formControlName="description"

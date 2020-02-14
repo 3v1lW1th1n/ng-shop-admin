@@ -6,7 +6,7 @@ import { ValidatorsService } from '@shared/services/validators.service';
   templateUrl: './products-dialog.component.html',
   styleUrls: ['./products-dialog.component.sass'],
 })
-export class ProductsDialogComponent {
+export class ProductsDialogComponent implements OnInit {
   @Input()
   public set product(value) {
     if (!value) {
@@ -19,19 +19,19 @@ export class ProductsDialogComponent {
   public save: ({ isEdit: boolean, value: object }) => void;
   public isEdit = false;
 
-  public form: FormGroup = this.fb.group(
-    {
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', Validators.required],
-      status: ['', Validators.required],
-    },
-    {
-      validators: [this.validatorsService.nameValidator],
-    },
-  );
+  public form: FormGroup = this.fb.group({
+    name: [
+      '',
+      Validators.required,
+      this.validatorsService.nameValidator.bind(this.validatorsService),
+    ],
+    description: ['', Validators.required],
+    price: ['', Validators.required],
+    status: ['', Validators.required],
+  });
   constructor(
     private fb: FormBuilder,
     public validatorsService: ValidatorsService,
   ) {}
+  ngOnInit() {}
 }
