@@ -1,0 +1,74 @@
+.popup-wrapper
+    max-width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+    border-radius: 10px
+    text-align: center
+    padding: 20px 30px 10px 10px
+    border-radius: 10px
+    box-sizing: border-box
+    width: 600px
+    .product-form
+        width: 90%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: space-between
+        margin: 0 auto
+        &-title
+            font-weight: 600
+            font-size: 28px
+            line-height: 36px
+            color: #90a0b7
+            margin: 10px auto
+        &-label
+            font-weight: normal
+            font-size: 16px
+            line-height: 20px
+            color: #707683
+            margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
+        &-input
+            width: 100%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            margin-bottom: 15px
+
+        &-select
+            width: 105%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            height: 38px
+            margin-bottom: 15px
+
+    .btnWrapp
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-item: center
+        width: 70%
