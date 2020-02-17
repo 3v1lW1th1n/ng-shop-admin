@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'shop-admin';
+  public isOpen!: boolean;
+  public changeSidebar() {
+    this.isOpen = !this.isOpen;
+    console.log(111);
+  }
 }

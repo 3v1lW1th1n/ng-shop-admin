@@ -13,8 +13,8 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
   public token: string;
 
-  public get getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(`/products`);
+  public getProducts(text): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(`/products?text=${text}`);
   }
   public addProducts(product: IProduct): Observable<IProduct> {
     return this.http.post<IProduct>(`/products`, product);

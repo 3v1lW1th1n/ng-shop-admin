@@ -1,9 +1,14 @@
 <div class="wrap">
-  <div class="sidebar">
+  <div
+    class="sidebar"
+    (onOpen)="changeSidebar()"
+    [ngClass]="{ 'sidebar-open': isOpen }"
+  >
+    {{ isOpen | json }}
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="content">
+  <div class="content" [ngClass]="{ 'sidebar-open-content': isOpen }">
     <router-outlet></router-outlet>
   </div>
 

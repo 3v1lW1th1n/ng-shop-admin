@@ -1,1 +1,46 @@
-<p>categories works!</p>
+<div class="categories">
+  <div class="content-top-panel">
+    <h2 class="page-title">Categories</h2>
+    <button class="btn" (click)="editCategory()">Add category</button>
+  </div>
+
+  <div class="categories-control"></div>
+  <!-- <div class="categories-table">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="controls">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="btn-edit" (click)="editCategory(element)"
+            >add</mat-icon          >
+          <mat-icon class="btn-edit" (click)="editCategory(element)"
+            >edit</mat-icon          >
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div> -->
+
+  <div *ngFor="let category of categories" class="table">
+    <div class="table-wrapp" [ngClass]="{ 'table-wrapp-open': isOpen }">
+      <!-- *ngFor="let subcategory of subcategories" -->
+      <div class="table-field-name">
+        {{ category.name }}
+      </div>
+      <div class="table-field-controls">
+        <mat-icon class="btn-edit" (click)="editCategory(category)"
+          >add</mat-icon
+        >
+        <mat-icon class="btn-edit" (click)="editCategory(category)"
+          >edit</mat-icon
+        >
+      </div>
+
+      <!-- <div class="subcategory">{{ subcategory.name }}</div> -->
+    </div>
+  </div>
+</div>

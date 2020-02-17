@@ -1,3 +1,4 @@
+import { CategoriesService } from './services/categories.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -49,6 +50,7 @@ export class SharedModule {
       providers: [
         ValidatorsService,
         ProductsService,
+        CategoriesService,
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,

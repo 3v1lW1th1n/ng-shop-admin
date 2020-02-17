@@ -4,7 +4,7 @@
   </h2>
   <ul class="sidebar-nav">
     <li>
-      <!-- <mat-icon>dashboard</mat-icon> -->
+      <mat-icon class="icon-menu">dashboard</mat-icon>
       <!-- <a
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -14,6 +14,7 @@
       <!-- </a> -->
     </li>
     <li>
+      <mat-icon class="icon-menu">view_agenda</mat-icon>
       <a
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -23,6 +24,7 @@
       </a>
     </li>
     <li>
+      <mat-icon class="icon-menu">category</mat-icon>
       <a
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -32,6 +34,7 @@
       </a>
     </li>
     <li>
+      <mat-icon class="icon-menu">attach_money</mat-icon>
       <!-- <a
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -39,6 +42,12 @@
       > -->
       <span class="sidebar-nav-text">Sales</span>
       <!-- </a> -->
+    </li>
+
+    <li class="toggle">
+      <button class="toggle-sidebar" (click)="sidebarClick()">
+        Toggle sidebar
+      </button>
     </li>
   </ul>
 </div>
