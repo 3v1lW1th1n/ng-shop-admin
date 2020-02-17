@@ -2,14 +2,7 @@ import {
   ProductsService,
   IProduct,
 } from './../../shared/services/products.service';
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  Injector,
-  ComponentFactoryResolver,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
@@ -24,44 +17,34 @@ import { ModalService } from '../modal/modal.service';
 export class ProductsComponent implements OnInit {
   @Input()
   public product: IProduct;
+  public products: IProduct[];
   displayedColumns: string[] = [
     'name',
     'description',
     'price',
     'status',
+    'category',
     'controls',
   ];
-  dataSource = new MatTableDataSource([]);
-  public sort: MatSort;
   public data: any;
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
   ) {}
 
-  @ViewChild(MatSort, { static: false }) set matSort(mp: MatSort) {
-    this.sort = mp;
-    this.dataSource.sort = this.sort;
-  }
-
   ngOnInit() {
-    this.productsService.getProducts.subscribe(data => {
-      this.data = data;
-      this.dataSource = new MatTableDataSource(this.data);
+    this.productsService.getProducts('').subscribe(data => {
+      this.products = data;
     });
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {
-      const index = this.data.findIndex(data => data._id === product._id);
+      const index = this.data.findIndex(item => item._id === product._id);
       this.data.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.data);
+      this.products = this.data;
     });
   }
-
   public editProduct(product?: IProduct): void {
     this._modalService.open({
       component: ProductsDialogComponent,
@@ -74,14 +57,13 @@ export class ProductsComponent implements OnInit {
               .subscribe((p: IProduct) => {
                 const index = this.data.findIndex(v => v._id === p._id);
                 this.data.splice(index, 1, p);
-                this.dataSource = new MatTableDataSource(this.data);
+                this.products = this.data;
               });
             this._modalService.close();
             return;
           }
           this.productsService.addProducts(value).subscribe(p => {
-            this.data.push(p);
-            this.dataSource = new MatTableDataSource(this.data);
+            this.products.push(p);
           });
           this._modalService.close();
         },

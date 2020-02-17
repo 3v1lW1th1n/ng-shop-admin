@@ -1,5 +1,7 @@
 .sidebar
-    width: 100%
+    width: 256px
+    height: 100vh
+    box-sizing: border-box
     height: 100%
     background: #fff
     box-shadow: 6px 0 18px rgba(0, 0, 0, 0.06)
@@ -7,6 +9,8 @@
     position: sticky
     top: 0
     box-sizing: border-box
+    position: relative
+
     &-title
         font-size: 24px
         line-height: 36px
@@ -22,8 +26,38 @@
     &-nav
         li
             margin-bottom: 16px
+            position: relative
+            .icon-menu
+                font-size: 18px
+                color: #cccccc
+                position: absolute
+                top: 3px
+                left: 4px
         &-text
             font-size: 16px
             padding-left: 35px
             line-height: 24px
             color: #334d6e
+    .toggle
+        position: absolute
+        bottom: 10px
+        left: 20px
+        &-sidebar
+            background-color: #fff
+            border: none
+            font-size: 16px
+            padding-left: 30px
+            line-height: 24px
+            color: #334d6e
+            &:hover
+                color: #109cf1
+                .toggle-sidebar-icon
+                    color: #109cf1
+            &:focus
+                outline: none
+            &-icon
+                font-size: 20px
+                color: #cccccc
+                position: absolute
+                top: 3px
+                left: 4px

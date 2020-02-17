@@ -10,12 +10,12 @@
       type="text"
       placeholder="Product name"
     />
-    <!-- {{ name.errors?.isInvalid | json }} -->
-    <!-- <div *ngIf="name.errors?.isInvalid === null" class="valid-date-error">
-      2222
-    </div> -->
-    <!-- <div *ngIf="form.errors?.isInvalid.nameExist" class="valid-date-error">
-      1111
+    <!-- {{ name.errors?.dirty == null | json }}
+    {{ !(name.errors?.valid === null) | json }}
+    <div
+      *ngIf="name.errors?.dirty === null && !(name.errors?.valid === null)"
+      class="valid-form"    >
+      This name are already exist
     </div> -->
     <label class="product-form-label">Description</label>
     <textarea
@@ -32,6 +32,11 @@
       type="number"
       placeholder="Price"
     />
+    <label class="product-form-label">Category</label>
+    <select formControlName="category" class="product-form-select">
+      <option [value]="true">{{ 0000 }}</option>
+    </select>
+    <!-- *ngFor="let category of categories" -->
     <label class="product-form-label">Status</label>
     <select formControlName="status" class="product-form-select">
       <option [value]="true">Enabled</option>

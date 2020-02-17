@@ -7,13 +7,13 @@ import {
 } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
 @Component({
-  selector: 'app-products-dialog',
-  templateUrl: './products-dialog.component.html',
-  styleUrls: ['./products-dialog.component.sass'],
+  selector: 'app-categories-dialog',
+  templateUrl: './categories-dialog.component.html',
+  styleUrls: ['./categories-dialog.component.sass'],
 })
-export class ProductsDialogComponent implements OnInit {
+export class CategoriesDialogComponent implements OnInit {
   @Input()
-  public set product(value) {
+  public set category(value) {
     if (!value) {
       return;
     }
@@ -30,10 +30,6 @@ export class ProductsDialogComponent implements OnInit {
       Validators.required,
       this.validatorsService.nameValidator.bind(this.validatorsService),
     ],
-    description: ['', Validators.required],
-    price: ['', Validators.required],
-    category: ['', Validators.required],
-    status: ['', Validators.required],
   });
   constructor(
     private fb: FormBuilder,
