@@ -8,8 +8,6 @@ import {
 } from '@shared/services/categories.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Observable } from 'rxjs';
-import { SubCategoriesDialogComponent } from './sub-categories-dialog/sub-categories-dialog.component';
 
 @Component({
   selector: 'app-categories',
@@ -46,20 +44,20 @@ export class CategoriesComponent implements OnInit {
       console.log(this.subCategories);
     });
   }
-  public addSubcategory(category?: ICategory): void {
-    this._modalService.open({
-      component: SubCategoriesDialogComponent,
-      context: {
-        category,
-        save: () => {
-          this._modalService.close();
-        },
-        close: () => {
-          this._modalService.close();
-        },
-      },
-    });
-  }
+  // public addSubcategory(category?: ICategory): void {
+  //   this._modalService.open({
+  //     component: SubCategoriesDialogComponent,
+  //     context: {
+  //       category,
+  //       save: () => {
+  //         this._modalService.close();
+  //       },
+  //       close: () => {
+  //         this._modalService.close();
+  //       },
+  //     },
+  //   });
+  // }
 
   public editCategory(category?: ICategory): void {
     this._modalService.open({
