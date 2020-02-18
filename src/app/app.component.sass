@@ -3,12 +3,16 @@
     flex-direction: row
     justify-content: flex-start
     align-items: flex-start
+    position: relative
     .sidebar
         width: 256px
-        height: 100vh
+        position: fixed
+        left: 0
+        top: 0
+        bottom: 0
         box-sizing: border-box
-
     .content
+        margin-left: 256px
         width: calc( 100% - 256px)
         height: 100vh
         background-color: #f5f6f8

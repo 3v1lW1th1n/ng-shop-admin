@@ -17,6 +17,7 @@ import { MatSort } from '@angular/material/sort';
 export class CategoriesComponent implements OnInit {
   @Input()
   public category: ICategory;
+  public panelOpenState = false;
   public categories: ICategory[];
   public subCategories: ISubcategory[];
   public isOpen: true;
@@ -39,10 +40,10 @@ export class CategoriesComponent implements OnInit {
       this.categories = data;
       // this.dataSource = new MatTableDataSource(this.data);
     });
-    this.categoriesService.getSubcategories().subscribe(data => {
-      this.subCategories = data;
-      console.log(this.subCategories);
-    });
+    // this.categoriesService.getSubcategories().subscribe(data => {
+    //   this.subCategories = data;
+    //   console.log(this.subCategories);
+    // });
   }
   // public addSubcategory(category?: ICategory): void {
   //   this._modalService.open({
