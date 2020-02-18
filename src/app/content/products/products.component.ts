@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
     'category',
     'controls',
   ];
-  public data: any;
+  public data = [];
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
@@ -46,6 +46,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   public editProduct(product?: IProduct): void {
+    console.log(product);
     this._modalService.open({
       component: ProductsDialogComponent,
       context: {
@@ -55,7 +56,10 @@ export class ProductsComponent implements OnInit {
             this.productsService
               .editProducts({ ...product, ...value })
               .subscribe((p: IProduct) => {
-                const index = this.data.findIndex(v => v._id === p._id);
+                console.log(p);
+                const index = this.data.findIndex(v => {
+                  return v._id === p._id;
+                });
                 this.data.splice(index, 1, p);
                 this.products = this.data;
               });

@@ -1,16 +1,4 @@
 .sidebar
-    width: 256px
-    height: 100vh
-    box-sizing: border-box
-    height: 100%
-    background: #fff
-    box-shadow: 6px 0 18px rgba(0, 0, 0, 0.06)
-    padding: 24px 26px
-    position: sticky
-    top: 0
-    box-sizing: border-box
-    position: relative
-
     &-title
         font-size: 24px
         line-height: 36px
@@ -24,6 +12,7 @@
         &-link
             color: inherit
     &-nav
+        margin-left: -39px
         li
             margin-bottom: 16px
             position: relative
@@ -38,21 +27,24 @@
             padding-left: 35px
             line-height: 24px
             color: #334d6e
-    .toggle
+.toggle
+    position: absolute
+    bottom: 10px
+    left: 20px
+    &-sidebar
+        background-color: #fff
+        border: none
+        font-size: 16px
+        padding-left: 30px
+        line-height: 24px
+        color: #334d6e
         position: absolute
-        bottom: 10px
-        left: 20px
-        &-sidebar
-            background-color: #fff
-            border: none
-            font-size: 16px
-            padding-left: 30px
-            line-height: 24px
-            color: #334d6e
-            &:hover
+        top: 560px
+        left: 0
+        &:hover
+            color: #109cf1
+            .toggle-sidebar-icon
                 color: #109cf1
-                .toggle-sidebar-icon
-                    color: #109cf1
             &:focus
                 outline: none
             &-icon

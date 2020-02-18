@@ -1,36 +1,36 @@
 <div class="categories">
-  <div class="content-top-panel">
-    <h2 class="page-title">Categories</h2>
+  <div class="content__top-panel">
+    <h1 class="page-title">Product categories</h1>
     <button class="btn" (click)="editCategory()">Add category</button>
   </div>
+  <div *ngFor="let category of categories; let i = index">
+    <div
+      class="category"
+      (click)="categoryClick()"
+      [ngClass]="{ category_open: !isOpen }"
+    >
+      <!-- ngClass]="active === i ? 'category_open' : ''" -->
 
-  <div class="categories-control"></div>
+      <header class="category__header">
+        {{ category.name }}
+      </header>
+      <div class="category__body">
+        <div class="subcategory-list">
+          <ul class="sortable-list">
+            <!-- *ngFor="let subcategory of subcategories" -->
+            <li class="categories__sortable-list-item sortable-list__item">
+              <!-- {{ subcategory.name }} -->2222
+              <span>13 products</span>
+            </li>
 
-  <div *ngFor="let category of categories" class="table">
-    <div class="table-wrapp" [ngClass]="{ 'table-wrapp-open': isOpen }">
-      <div class="table-field-name">
-        <!-- *ngFor="let subcategory of subcategories" -->
-        <span>{{ category.name }}</span>
-        <!-- <div class="subcategory">{{ subcategory.name }}</div> -->
-        <!-- <div class="hidden-list">
-          <div class="hidden-item">
-            <span>1111</span>
-            <span>10 products</span>
-          </div>
-          <div class="hidden-item">
-            <span>1111</span>
-            <span>10 products</span>
-          </div>
-          <div class="hidden-item">
-            <span>1111</span>
-            <span>10 products</span>
-          </div>
-        </div> -->
+            <li class="categories__sortable-list-item sortable-list__item">
+              2233<span>12 products</span>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="table-field-controls">
-        <mat-icon class="btn-edit" (click)="editCategory(category)"
-          >add</mat-icon
-        >
+        <mat-icon class="btn-edit" (click)="addSubcategory()">add</mat-icon>
         <mat-icon class="btn-edit" (click)="editCategory(category)"
           >edit</mat-icon
         >

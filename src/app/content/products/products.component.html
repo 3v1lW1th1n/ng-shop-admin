@@ -1,54 +1,99 @@
-<div class="products">
-  <div class="content-top-panel">
-    <h2 class="page-title">Products</h2>
-    <button class="btn" (click)="editProduct()">Add product</button>
+<div
+  style="background-color: var(--grey-skeleton); margin: 100px; height: calc(100vh - 200px)"
+  class="products-list"
+>
+  <div class="content__top-panel">
+    <h1 class="page-title">
+      Products
+    </h1>
+    <button type="button" class="button-primary" (click)="editProduct()">
+      Add product
+    </button>
   </div>
 
-  <div class="products-control"></div>
-  <div class="products-table">
-    <div class="headers-row">
-      <div class="table-field-image">
-        Image
+  <div class="content-box content-box_small">
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="form-label">Filter by:</label>
+        <input type="text" class="form-control" placeholder="Product name" />
       </div>
-      <div class="table-field-name header ">
-        Name
+      <div class="form-group" data-elem="sliderContainer">
+        <label class="form-label">Price:</label>
+        <div class="range-slider">
+          <span>$0</span>
+          <div class="range-slider__inner">
+            <span
+              class="range-slider__progress"
+              style="left: 0%; right: 0%;"
+            ></span>
+            <span class="range-slider__thumb-left" style="left: 0%;"></span>
+            <span class="range-slider__thumb-right" style="right: 0%;"></span>
+          </div>
+          <span>$4000</span>
+        </div>
       </div>
-      <div class="table-field-description header">
-        Description
+      <div class="form-group">
+        <label class="form-label">Status:</label>
+        <select class="form-control" data-elem="filterStatus">
+          <option value="true" selected="">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
       </div>
-      <div class="table-field-price header">
-        Price
+    </form>
+  </div>
+  <div class="sortable-table">
+    <div class="sortable-table__header sortable-table__row">
+      <div class="sortable-table__cell">
+        <span>Image</span>
       </div>
-      <div class="table-field-status header">
-        Status
+      <div class="sortable-table__cell ">
+        <span>Name</span>
+        <!-- <span class="sortable-table__sort-arrow">
+          <span class="sortable-table__sort-arrow_asc"></span>
+        </span> -->
       </div>
-      <div class="table-field-category header">
-        Category
+      <div class="sortable-table__cell ">
+        <span>Description</span>
       </div>
-      <div class="table-field-controls"></div>
+      <div class="sortable-table__cell ">
+        <span>Price</span>
+      </div>
+      <div class="sortable-table__cell ">
+        <span>Subcategory</span>
+      </div>
+
+      <div class="sortable-table__cell ">
+        <span>Status</span>
+      </div>
+      <div class="sortable-table__cell "></div>
     </div>
 
-    <div *ngFor="let product of products" class="table">
-      <div class="table-row">
-        <div class="table-field-img">
-          <img class="table-img" src="{{ product.images[0]?.url }}" alt="img" />
+    <div data-elem="body" class="sortable-table__body">
+      <div *ngFor="let product of products" class="sortable-table__row">
+        <div class="sortable-table__cell ">
+          <img
+            class="sortable-table-image "
+            src="{{ product.images[0]?.url }}"
+            alt="img"
+          />
         </div>
-        <div class="table-field-name">
+        <div class="sortable-table__cell ">
           {{ product.name }}
         </div>
-        <div class="table-field-description">
+        <div class="sortable-table__cell ">
           {{ product.description }}
         </div>
-        <div class="table-field-price">
+        <div class="sortable-table__cell ">
           {{ product.price }}
         </div>
-        <div class="table-field-status">
+        <div class="sortable-table__cell ">
+          <!-- {{ product.subcategory }} -->111
+        </div>
+        <div class="sortable-table__cell ">
           {{ product.status }}
         </div>
-        <div class="table-field-category">
-          <!-- {{ product.category }} -->11111
-        </div>
-        <div class="table-field-controls">
+
+        <div class="sortable-table__cell table__cell_controls">
           <mat-icon class="btn-edit" (click)="editProduct(product)"
             >edit</mat-icon
           >

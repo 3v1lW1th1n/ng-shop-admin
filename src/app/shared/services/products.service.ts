@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+interface IProductImage {
+  url: string;
+  source: string;
+}
 export interface IProduct {
   _id: String;
   name: String;
   description: String;
   price: number;
   status: boolean;
+  images: IProductImage[];
 }
 @Injectable()
 export class ProductsService {
@@ -21,6 +26,7 @@ export class ProductsService {
   }
   public editProducts(product: IProduct): Observable<IProduct> {
     const { _id, ...body } = product;
+    console.log(body);
     return this.http.put<IProduct>(`/products/${_id}`, body);
   }
   public deleteProducts(product: IProduct): Observable<IProduct> {
