@@ -7,7 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SidebarComponent {
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onOpen: EventEmitter<any> = new EventEmitter();
+  @Output() onOpen: EventEmitter<string> = new EventEmitter();
   public toggleSidebar(value: string) {
     this.onOpen.emit(value);
     console.log('child');
