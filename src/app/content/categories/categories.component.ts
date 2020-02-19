@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
-import { ModalService } from '../modal/modal.service';
-import {
-  ICategory,
-  CategoriesService,
-  ISubcategory,
-} from '@shared/services/categories.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { CategoriesService } from '@shared/services/categories.service';
+import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categories-dialog.component';
+import { ModalService } from '@modal/modal.service';
+import { ICategory, ISubcategory } from './store/reducers/category.reducer';
 
 @Component({
   selector: 'app-categories',
@@ -17,47 +13,44 @@ import { MatSort } from '@angular/material/sort';
 export class CategoriesComponent implements OnInit {
   @Input()
   public category: ICategory;
+  public panelOpenState = false;
   public categories: ICategory[];
   public subCategories: ISubcategory[];
-  public isOpen: true;
-  displayedColumns: string[] = ['name', 'controls'];
-  dataSource = new MatTableDataSource([]);
-  public sort: MatSort;
+  public isOpen = true;
   public data: any;
 
   constructor(
     private _modalService: ModalService,
     private categoriesService: CategoriesService,
   ) {}
-  @ViewChild(MatSort, { static: false }) set matSort(mp: MatSort) {
-    this.sort = mp;
-    this.dataSource.sort = this.sort;
-  }
 
   ngOnInit() {
     this.categoriesService.getCategories().subscribe(data => {
       this.categories = data;
       // this.dataSource = new MatTableDataSource(this.data);
     });
-    this.categoriesService.getSubcategories().subscribe(data => {
-      this.subCategories = data;
-      console.log(this.subCategories);
+    // this.categoriesService.getSubcategories().subscribe(data => {
+    //   this.subCategories = data;
+    //   console.log(this.subCategories);
+    // });
+  }
+  public categoryClick() {
+    this.isOpen = !this.isOpen;
+  }
+  public addSubcategory(category?: ICategory): void {
+    this._modalService.open({
+      component: SubCategoriesDialogComponent,
+      context: {
+        category,
+        save: () => {
+          this._modalService.close();
+        },
+        close: () => {
+          this._modalService.close();
+        },
+      },
     });
   }
-  // public addSubcategory(category?: ICategory): void {
-  //   this._modalService.open({
-  //     component: SubCategoriesDialogComponent,
-  //     context: {
-  //       category,
-  //       save: () => {
-  //         this._modalService.close();
-  //       },
-  //       close: () => {
-  //         this._modalService.close();
-  //       },
-  //     },
-  //   });
-  // }
 
   public editCategory(category?: ICategory): void {
     this._modalService.open({
@@ -71,14 +64,14 @@ export class CategoriesComponent implements OnInit {
               .subscribe((p: ICategory) => {
                 const index = this.data.findIndex(v => v._id === p._id);
                 this.data.splice(index, 1, p);
-                this.dataSource = new MatTableDataSource(this.data);
+                this.categories = this.data;
               });
             this._modalService.close();
             return;
           }
           this.categoriesService.addCategories(value).subscribe(p => {
             this.data.push(p);
-            this.dataSource = new MatTableDataSource(this.data);
+            this.categories = this.data;
           });
           this._modalService.close();
         },

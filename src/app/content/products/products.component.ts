@@ -1,12 +1,10 @@
-import {
-  ProductsService,
-  IProduct,
-} from './../../shared/services/products.service';
+import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
-import { ModalService } from '../modal/modal.service';
+import { ModalService } from '@modal/modal.service';
+import { IProduct } from './store/reducers/product.reducer';
 
 @Component({
   selector: 'app-products',
@@ -26,18 +24,16 @@ export class ProductsComponent implements OnInit {
     'category',
     'controls',
   ];
-  public data: any;
+  public data = [];
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
   ) {}
-
   ngOnInit() {
     this.productsService.getProducts('').subscribe(data => {
       this.products = data;
     });
   }
-
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {
       const index = this.data.findIndex(item => item._id === product._id);
@@ -46,6 +42,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   public editProduct(product?: IProduct): void {
+    console.log(product);
     this._modalService.open({
       component: ProductsDialogComponent,
       context: {
@@ -55,7 +52,10 @@ export class ProductsComponent implements OnInit {
             this.productsService
               .editProducts({ ...product, ...value })
               .subscribe((p: IProduct) => {
-                const index = this.data.findIndex(v => v._id === p._id);
+                console.log(p);
+                const index = this.data.findIndex(v => {
+                  return v._id === p._id;
+                });
                 this.data.splice(index, 1, p);
                 this.products = this.data;
               });

@@ -20,6 +20,7 @@ export class CategoriesDialogComponent implements OnInit {
     this.isEdit = true;
     this.form.patchValue(value);
   }
+
   public close: () => void;
   public save: ({ isEdit: boolean, value: object }) => void;
   public isEdit = false;
