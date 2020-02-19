@@ -69,6 +69,473 @@ li
         color: var(--blue)
         background-color: var(--white)
 
+.wrap
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: flex-start
+    position: relative
+    .sidebar
+        width: 256px
+        position: fixed
+        left: 0
+        top: 0
+        bottom: 0
+        box-sizing: border-box
+    .content
+        margin-left: 256px
+        width: calc( 100% - 256px)
+        // height: 100%
+        padding-bottom: 200px
+        background-color: #f5f6f8
+        padding: 24px 36px
+        box-sizing: border-box
+    // .sidebar-open
+    //     width: 70px
+    //     height: 100vh
+    //     box-sizing: border-box
+    //     overflow: hidden
+    // .sidebar-open-content
+    //     width: calc( 100% - 70px)
+    //     height: 100vh
+    //     background-color: #f5f6f8
+    //     padding: 24px 19px
+    //     margin-right: 20px
+    //     box-sizing: border-box
+//////////
+.sidebar
+    &-title
+        font-size: 24px
+        line-height: 36px
+        height: 36px
+        color: #334d6e
+        margin-top: 0
+        margin-bottom: 32px
+        text-transform: uppercase
+        display: flex
+        align-items: center
+        &-link
+            color: inherit
+    &-nav
+        margin-left: -39px
+        li
+            margin-bottom: 16px
+            position: relative
+            .icon-menu
+                font-size: 18px
+                color: #cccccc
+                position: absolute
+                top: 3px
+                left: 4px
+        &-text
+            font-size: 16px
+            padding-left: 35px
+            line-height: 24px
+            color: #334d6e
+.toggle
+    position: absolute
+    bottom: 10px
+    left: 20px
+    &-sidebar
+        background-color: #fff
+        border: none
+        font-size: 16px
+        padding-left: 30px
+        line-height: 24px
+        color: #334d6e
+        position: absolute
+        top: 560px
+        left: 0
+        &:hover
+            color: #109cf1
+            .toggle-sidebar-icon
+                color: #109cf1
+            &:focus
+                outline: none
+            &-icon
+                font-size: 20px
+                color: #cccccc
+                position: absolute
+                top: 3px
+                left: 4px
+////////
+.categories
+    display: flex
+    flex-direction: column
+    height: 100%
+    &-control
+        background-color: #fff
+        padding: 16px 32px
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+        margin-bottom: 24px
+.content-top-panel
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+.table
+    width: 100%
+    margin: 0 auto
+    .table-wrapp
+        display: flex
+        flex-flow: row wrap
+        align-items: center
+        justify-content: space-between
+        padding: 16px 16px 16px 40px
+        position: relative
+        cursor: pointer
+        background: #fff
+        border: 1px solid #fff
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14)
+        border-radius: 4px
+        margin-bottom: 16px
+        &:before
+            content: ""
+            width: 0
+            height: 0
+            border: 6px solid transparent
+            border-left: 6px solid #ccc
+            position: absolute
+            top: 25px
+            left: 19px
+            margin-top: -6px
+            transition: 0.3s all ease
+    .table-wrapp-open
+        background: #eff1f4
+        border: 1px solid #c2cfe0
+        box-shadow: none
+.btn-edit
+    font-size: 18px
+    cursor: pointer
+    margin: 0 auto
+.table-field-name
+    width: 100%
+.hidden-list
+    width: 100%
+.hidden-item
+    margin: 12px 0
+    padding: 12px 16px
+    background-color: #fff
+    list-style: none
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14)
+    border-radius: 4px
+    position: relative
+.table-field-controls
+    position: absolute
+    top: 13px
+    right: 19px
+//////
+.modal
+    display: none
+    position: fixed
+    left: 0
+    top: 0
+    z-index: 999
+    width: 100%
+    height: 100%
+    overflow: hidden
+    background-color: rgba(0, 0, 0, 0.4)
+    &.open
+        display: block
+        .content
+            margin: 5% auto
+            width: 600px
+            background-color: #f1f1f1
+            box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+/////
+.popup-wrapper
+    max-width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+    border-radius: 10px
+    text-align: center
+    padding: 20px 20px 10px 10px
+    border-radius: 10px
+    box-sizing: border-box
+    width: 600px
+    .product-form
+        width: 90%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: space-between
+        margin: 0 auto
+        position: relative
+        &-title
+            font-weight: 600
+            font-size: 28px
+            line-height: 36px
+            color: #90a0b7
+            margin: 10px auto
+        &-label
+            font-weight: normal
+            font-size: 16px
+            line-height: 20px
+            color: #707683
+            margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
+        &-input
+            width: 105%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            margin-bottom: 15px
+
+        &-select
+            width: 105%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            height: 38px
+            margin-bottom: 15px
+
+    .btnWrapp
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-item: center
+        width: 70%
+        margin-bottom: 15px
+.textarea
+    resize: none
+    min-height: 110px
+.valid-form
+    color: #ce4040
+    position: absolute
+    top: 123px
+    left: 0
+///////
+    .popup-wrapper
+        max-width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        position: relative
+        border-radius: 10px
+        text-align: center
+        padding: 20px 30px 10px 10px
+        border-radius: 10px
+        box-sizing: border-box
+        width: 600px
+    .category-form
+        width: 90%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: space-between
+        margin: 0 auto
+        position: relative
+        &-title
+            font-weight: 600
+            font-size: 28px
+            line-height: 36px
+            color: #90a0b7
+            margin: 10px auto
+        &-label
+            font-weight: normal
+            font-size: 16px
+            line-height: 20px
+            color: #707683
+            margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
+        &-input
+            width: 100%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            margin-bottom: 15px
+
+.btnWrapp
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-item: center
+    width: 70%
+    margin: 0 auto
+.valid-form
+    color: #ce4040
+    position: absolute
+    top: 123px
+    left: 0
+//////
+.popup-wrapper
+    max-width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+    border-radius: 10px
+    text-align: center
+    padding: 20px 30px 10px 10px
+    border-radius: 10px
+    box-sizing: border-box
+    width: 600px
+    .sub-category-form
+        width: 90%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: space-between
+        margin: 0 auto
+        position: relative
+        &-title
+            font-weight: 600
+            font-size: 28px
+            line-height: 36px
+            color: #90a0b7
+            margin: 10px auto
+        &-label
+            font-weight: normal
+            font-size: 16px
+            line-height: 20px
+            color: #707683
+            margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
+        &-input
+            width: 100%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            margin-bottom: 15px
+
+.btnWrapp
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-item: center
+    width: 70%
+    margin: 0 auto
+.valid-form
+    color: #ce4040
+    position: absolute
+    top: 123px
+    left: 0
+///////
+.popup-wrapper
+    max-width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    position: relative
+    border-radius: 10px
+    text-align: center
+    padding: 20px 30px 10px 10px
+    border-radius: 10px
+    box-sizing: border-box
+    width: 600px
+    .category-form
+        width: 90%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: space-between
+        margin: 0 auto
+        position: relative
+        &-title
+            font-weight: 600
+            font-size: 28px
+            line-height: 36px
+            color: #90a0b7
+            margin: 10px auto
+        &-label
+            font-weight: normal
+            font-size: 16px
+            line-height: 20px
+            color: #707683
+            margin-bottom: 8px
+            position: relative
+            &::before
+                content: "*"
+                position: absolute
+                top: 2px
+                right: -6px
+                font-size: 17px
+                width: 5px
+                height: 5px
+                color: #ce4040
+        &-input
+            width: 100%
+            background-color: #fff
+            border: 1px solid #c2cfe0
+            border-radius: 4px
+            padding: 8px 12px
+            font-weight: 400
+            font-size: 16px
+            line-height: 20px
+            color: #334d6e
+            outline: none
+            margin-bottom: 15px
+
+.btnWrapp
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-item: center
+    width: 70%
+    margin: 0 auto
+.valid-form
+    color: #ce4040
+    position: absolute
+    top: 123px
+    left: 0
+//
 button.is-loading::before
     content: ""
     display: grid
@@ -268,26 +735,31 @@ form.form-inline .form-group
     position: sticky
     top: 0
 
-    .is-collapsed-sidebarul &
-        margin-left: -3px
+.is-collapsed-sidebar
+    .sidebar
+        ul
+            margin-left: -3px
+            a
+                span
+                    display: none
+            button
+                span
+                    display: none
 
-    .is-collapsed-sidebarulaspan, &
+.is-collapsed-sidebar__title
+    font-size: 12px
+    line-height: 1.2
+    margin-left: -16px
+    text-align: center
+    width: 48px
 
-    .is-collapsed-sidebarulbuttonspan &
-        display: none
+.is-collapsed-sidebar
+    .main
+        grid-template-columns: 70px 1fr
 
-    .is-collapsed-sidebar__title &
-        font-size: 12px
-        line-height: 1.2
-        margin-left: -16px
-        text-align: center
-        width: 48px
-
-.is-collapsed-sidebar .main
-    grid-template-columns: 70px 1fr
-
-.is-collapsed-sidebar .sidebar__nav_bottom li
-    height: 24px
+.is-collapsed-sidebar
+    .sidebar__nav_bottom li
+        height: 24px
 
 .sidebar__title
     font-size: 24px

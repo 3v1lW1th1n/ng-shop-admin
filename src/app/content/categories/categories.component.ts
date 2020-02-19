@@ -1,12 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
-import { ModalService } from '../modal/modal.service';
-import {
-  ICategory,
-  CategoriesService,
-  ISubcategory,
-} from '@shared/services/categories.service';
+import { CategoriesService } from '@shared/services/categories.service';
 import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categories-dialog.component';
+import { ModalService } from '@modal/modal.service';
+import { ICategory, ISubcategory } from './store/reducers/category.reducer';
 
 @Component({
   selector: 'app-categories',

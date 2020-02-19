@@ -1,12 +1,10 @@
-import {
-  ProductsService,
-  IProduct,
-} from './../../shared/services/products.service';
+import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
-import { ModalService } from '../modal/modal.service';
+import { ModalService } from '@modal/modal.service';
+import { IProduct } from './store/reducers/product.reducer';
 
 @Component({
   selector: 'app-products',
@@ -31,13 +29,11 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     private _modalService: ModalService,
   ) {}
-
   ngOnInit() {
     this.productsService.getProducts('').subscribe(data => {
       this.products = data;
     });
   }
-
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {
       const index = this.data.findIndex(item => item._id === product._id);

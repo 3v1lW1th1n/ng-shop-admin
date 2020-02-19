@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-export interface ICategory {
-  name: String;
-  _id: String;
-}
-export interface ISubcategory {
-  _id: String;
-  name: String;
-  idCategory: String;
-}
+import {
+  ICategory,
+  ISubcategory,
+} from 'src/app/content/categories/store/reducers/category.reducer';
+
 @Injectable()
 export class CategoriesService {
   constructor(private http: HttpClient) {}
