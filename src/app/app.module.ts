@@ -20,7 +20,7 @@ import { reducers } from './store/reducers';
     AppRoutingModule,
     ModalModule.forRoot(),
     SharedModule.forRoot(),
-    EffectsModule.forRoot(effects),
+    EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {
       // metaReducers,
       runtimeChecks: {

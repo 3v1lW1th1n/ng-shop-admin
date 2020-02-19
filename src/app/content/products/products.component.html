@@ -69,7 +69,10 @@
     </div>
 
     <div data-elem="body" class="sortable-table__body">
-      <div *ngFor="let product of products" class="sortable-table__row">
+      <div
+        *ngFor="let product of products$ | async"
+        class="sortable-table__row"
+      >
         <div class="sortable-table__cell ">
           <img
             class="sortable-table-image "

@@ -1,42 +1,45 @@
 import { createAction, props } from '@ngrx/store';
-import { IProductState } from '../reducers/product.reducer';
+import { IProductState, IProduct } from '../reducers/product.reducer';
 // GET
-export const getProductPending = createAction('[Product] Get product pending');
-export const getProductSuccess = createAction(
-  '[Product] Get product success',
-  props<{ product: IProductState }>(),
+export const getProductsPending = createAction(
+  '[Product] Get product pending',
+  props<{ text?: string }>(),
 );
-export const getProductError = createAction('[Product] Get product error');
+export const getProductsSuccess = createAction(
+  '[Product] Get product success',
+  props<{ products: IProduct[] }>(),
+);
+export const getProductsError = createAction('[Product] Get product error');
 // CREATE
-export const createProductPending = createAction(
+export const createProductsPending = createAction(
   '[Product] Create  product pending',
 );
-export const createProductSuccess = createAction(
+export const createProductsSuccess = createAction(
   '[Product] Create  product success',
-  props<{ product: IProductState }>(),
+  props<{ products: IProductState }>(),
 );
-export const createProductError = createAction(
+export const createProductsError = createAction(
   '[Product] Create product error',
 );
 // UPDATE
-export const updateProductPending = createAction(
+export const updateProductsPending = createAction(
   '[Product] Update product pending',
 );
-export const updateProductSuccess = createAction(
+export const updateProductsSuccess = createAction(
   '[Product] Update  product success',
-  props<{ product: IProductState }>(),
+  props<{ products: IProductState }>(),
 );
-export const updateProductError = createAction(
+export const updateProductsError = createAction(
   '[Product] Update product error',
 );
 // DELETE
-export const deleteProductPending = createAction(
+export const deleteProductsPending = createAction(
   '[Product] Delete product pending',
 );
-export const deleteProductSuccess = createAction(
+export const deleteProductsSuccess = createAction(
   '[Product] Delete  product success',
-  props<{ product: IProductState }>(),
+  props<{ products: IProductState }>(),
 );
-export const deleteProductError = createAction(
+export const deleteProductsError = createAction(
   '[Product] Delete product error',
 );

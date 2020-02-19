@@ -1,10 +1,11 @@
 import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
 import { ModalService } from '@modal/modal.service';
 import { IProduct } from './store/reducers/product.reducer';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { getProductsPending } from './store/actions/product.action';
 
 @Component({
   selector: 'app-products',
@@ -24,15 +25,19 @@ export class ProductsComponent implements OnInit {
     'category',
     'controls',
   ];
+  public products$!: Observable<IProduct[]>;
   public data = [];
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
+    private store: Store<any>,
   ) {}
   ngOnInit() {
-    this.productsService.getProducts('').subscribe(data => {
-      this.products = data;
-    });
+    // this.productsService.getProducts('').subscribe(data => {
+    //   this.products = data;
+    // });
+    this.products$ = this.store.select('products', 'items');
+    this.store.dispatch(getProductsPending({}));
   }
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {

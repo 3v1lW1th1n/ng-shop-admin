@@ -1,17 +1,15 @@
 // import { logoutSuccess } from '../actions/auth.action';
 import { createReducer, on } from '@ngrx/store';
-// tslint:disable-next-line: max-line-length
 import {
-  getProductSuccess,
-  getProductPending,
-  getProductError,
-  createProductPending,
-  createProductSuccess,
-  createProductError,
-} from 'src/app/content/products/store/actions/product.action';
+  getCategoriesPending,
+  getCategoriesSuccess,
+  createCategoryPending,
+  createCategorySuccess,
+} from '../actions/category.action';
+// tslint:disable-next-line: max-line-length
 
 export interface ICategoryState {
-  item: ICategory;
+  items: ICategory[];
   loading: boolean;
 }
 export interface ICategory {
@@ -25,38 +23,26 @@ export interface ISubcategory {
 }
 const categoryReducer = createReducer(
   {
-    item: {
-      _id: '',
-      name: '',
-    },
+    items: [],
     loading: false,
   },
-  on(getProductPending, (state: ICategoryState) => ({
+  on(getCategoriesPending, (state: ICategoryState) => ({
     ...state,
     loading: true,
   })),
-  on(getProductSuccess, (state: ICategoryState) => ({
+  on(getCategoriesSuccess, (state: ICategoryState, { categories }) => ({
     ...state,
+    items: categories,
     loading: false,
   })),
 
-  on(getProductError, (state: ICategoryState) => ({
+  on(createCategoryPending, (state: ICategoryState) => ({
     ...state,
     loading: true,
   })),
-
-  on(createProductPending, (state: ICategoryState) => ({
-    ...state,
-    loading: true,
-  })),
-  on(createProductSuccess, (state: ICategoryState) => ({
+  on(createCategorySuccess, (state: ICategoryState) => ({
     ...state,
     loading: false,
-  })),
-
-  on(createProductError, (state: ICategoryState) => ({
-    ...state,
-    loading: true,
   })),
 );
 

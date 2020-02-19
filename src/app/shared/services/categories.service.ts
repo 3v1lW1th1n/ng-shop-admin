@@ -12,6 +12,7 @@ export class CategoriesService {
   public token: string;
 
   public getCategories(): Observable<ICategory[]> {
+    console.log('12312312;');
     return this.http.get<ICategory[]>(`/categories`);
   }
   public addCategories(category: ICategory): Observable<ICategory> {

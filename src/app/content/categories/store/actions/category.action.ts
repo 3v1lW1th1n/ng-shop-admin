@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
-import { ICategoryState } from '../reducers/category.reducer';
+import { ICategoryState, ICategory } from '../reducers/category.reducer';
 
-export const getCategoryPending = createAction(
+export const getCategoriesPending = createAction(
   '[Category] Get category pending',
 );
-export const getCategorySuccess = createAction(
+export const getCategoriesSuccess = createAction(
   '[Category] Get category success',
-  props<{ category: ICategoryState }>(),
+  props<{ categories: ICategory[] }>(),
 );
-export const getCategoryError = createAction('[Category] Get category error');
+export const getCategoriesError = createAction('[Category] Get category error');
 
 export const createCategoryPending = createAction(
   '[Category] Create category pending',
