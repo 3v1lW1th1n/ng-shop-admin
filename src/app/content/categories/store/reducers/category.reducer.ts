@@ -15,6 +15,7 @@ export interface ICategoryState {
 export interface ICategory {
   name: String;
   _id: String;
+  subCategories: ISubcategory[];
 }
 export interface ISubcategory {
   _id: String;

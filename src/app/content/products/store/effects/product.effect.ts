@@ -48,7 +48,12 @@ export class ProductsEffects {
     ),
   );
   public createProduct$: Observable<any> = createEffect(() =>
-    this.actions.pipe(ofType(createProductsPending)),
+    this.actions.pipe(
+      ofType(createProductsPending),
+      // switchMap(product => {
+      //   return this.productsService.addProducts(product);
+      // }),
+    ),
   );
   public updateProduct$: Observable<any> = createEffect(() =>
     this.actions.pipe(ofType(updateProductsPending)),

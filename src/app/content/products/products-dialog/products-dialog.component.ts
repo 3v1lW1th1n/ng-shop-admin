@@ -6,18 +6,25 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
+import { ICategory } from '../../categories/store/reducers/category.reducer';
+import { Observable } from 'rxjs';
+import { getCategoriesPending } from '../../categories/store/actions/category.action';
+import { Store } from '@ngrx/store';
+import { IStore } from 'src/app/store/reducers';
 @Component({
   selector: 'app-products-dialog',
   templateUrl: './products-dialog.component.html',
   styleUrls: ['./products-dialog.component.sass'],
 })
 export class ProductsDialogComponent implements OnInit {
+  public categories$!: Observable<ICategory[]>;
   @Input()
   public set product(value) {
     if (!value) {
       return;
     }
     this.isEdit = true;
+    console.log(value);
     this.form.patchValue(value);
   }
   public close: () => void;
@@ -32,13 +39,17 @@ export class ProductsDialogComponent implements OnInit {
     ],
     description: ['', Validators.required],
     price: ['', Validators.required],
-    category: ['', Validators.required],
-    status: ['', Validators.required],
+    subCategory: ['', Validators.required],
+    // status: ['', Validators.required],
   });
   constructor(
     private fb: FormBuilder,
     public validatorsService: ValidatorsService,
+    private store: Store<IStore>,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categories$ = this.store.select('categories', 'items');
+    this.store.dispatch(getCategoriesPending());
+  }
 }

@@ -322,7 +322,7 @@ li
         justify-content: space-between
         align-item: center
         width: 70%
-        margin-bottom: 15px
+        margin: 26px 0px 9px 26px
 .textarea
     resize: none
     min-height: 110px
@@ -1298,7 +1298,7 @@ form.form-inline .form-group
 
     &__row
         display: grid
-        grid: auto-flow/70px 24% 40% 9% 9% 5% 6%
+        grid: auto-flow/70px 24% 43% 6% 13% 6%
         text-decoration: none
 
     &__cell
@@ -1950,3 +1950,60 @@ form.form-inline .form-group
     .mat-icon
         font-size: 20px
         cursor: pointer
+//////////////////
+.categories
+    position: relative
+    z-index: 1
+    li
+        margin: 5px 0
+        list-style: none
+        text-align: left
+
+    &-name
+        padding: .375rem .75rem
+        font-size: 1rem
+        line-height: 1.5
+        color: #495057
+        background-color: #fff
+        background-clip: padding-box
+        border: 1px solid #ced4da
+        border-radius: .25rem
+        &:hover
+            border: 1px solid #109cf1
+            border-radius: 4px
+
+            color: #109cf1
+            cursor: pointer
+
+    &-list
+        position: absolute
+        bottom: 51px
+        left: 0
+        width: 400px
+        z-index: 3
+        background-color: #fff
+        max-height: 200px
+        overflow: auto
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3)
+        border-radius: .25rem
+        &-menu
+            padding: 0
+            margin: 10px 19px 5px 19px
+            &-category
+                border-bottom: 1px solid #ccc
+            &-subcategory
+                margin: 0
+                padding: 0
+                color: #707683
+                &:hover
+                    color: #007bff
+                    cursor: pointer
+        &-all
+            padding: 0
+            margin: 10px 19px
+            text-align: left
+            &:hover
+                color: #007bff
+                cursor: pointer
+.active
+    color: #007bff

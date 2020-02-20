@@ -1,10 +1,15 @@
+import { createCategoryPending } from './../categories/store/actions/category.action';
 import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
 import { ModalService } from '@modal/modal.service';
-import { IProduct } from './store/reducers/product.reducer';
+import { IProduct, IProductState } from './store/reducers/product.reducer';
 import { Store } from '@ngrx/store';
-import { getProductsPending } from './store/actions/product.action';
+import {
+  getProductsPending,
+  updateProductsPending,
+  createProductsPending,
+} from './store/actions/product.action';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -30,14 +35,11 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.store.select('products').subscribe(products => {
       this.products = products.items;
+      // console.log(this.products);
       this.loader = products.loading;
       this.hasMore = products.hasMore;
     });
     this.store.dispatch(getProductsPending({ page: this.page }));
-    // this.search.valueChanges.subscribe(data => {
-    //   this.search = data;
-    //   console.log(this.search);
-    // });
   }
   public searchProduct() {}
   public onScroll() {
@@ -60,6 +62,7 @@ export class ProductsComponent implements OnInit {
       context: {
         product,
         save: ({ isEdit, value }) => {
+          console.log(value);
           if (isEdit) {
             this.productsService
               .editProducts({ ...product, ...value })
@@ -71,12 +74,14 @@ export class ProductsComponent implements OnInit {
                 this.data.splice(index, 1, p);
                 this.products = this.data;
               });
+            // this.store.dispatch(updateProductsPending());
             this._modalService.close();
             return;
           }
           this.productsService.addProducts(value).subscribe(p => {
             this.products.push(p);
           });
+          // this.store.dispatch(createProductsPending(value));
           this._modalService.close();
         },
         close: () => {

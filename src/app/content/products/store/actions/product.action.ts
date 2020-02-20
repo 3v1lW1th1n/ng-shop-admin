@@ -13,10 +13,11 @@ export const getProductsError = createAction('[Product] Get product error');
 // CREATE
 export const createProductsPending = createAction(
   '[Product] Create  product pending',
+  // props<{ product: IProduct }>(),
 );
 export const createProductsSuccess = createAction(
   '[Product] Create  product success',
-  props<{ products: IProductState }>(),
+  // props<{ products: IProductState }>(),
 );
 export const createProductsError = createAction(
   '[Product] Create product error',
