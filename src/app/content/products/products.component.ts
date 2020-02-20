@@ -4,8 +4,8 @@ import { ProductsDialogComponent } from './products-dialog/products-dialog.compo
 import { ModalService } from '@modal/modal.service';
 import { IProduct } from './store/reducers/product.reducer';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { getProductsPending } from './store/actions/product.action';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
@@ -17,27 +17,35 @@ export class ProductsComponent implements OnInit {
   @Input()
   public product: IProduct;
   public products: IProduct[];
-  displayedColumns: string[] = [
-    'name',
-    'description',
-    'price',
-    'status',
-    'category',
-    'controls',
-  ];
-  public products$!: Observable<IProduct[]>;
   public data = [];
+  public page = 1;
+  public hasMore = true;
+  public loader: boolean;
+  public search = new FormControl('');
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
     private store: Store<any>,
   ) {}
   ngOnInit() {
-    // this.productsService.getProducts('').subscribe(data => {
-    //   this.products = data;
+    this.store.select('products').subscribe(products => {
+      this.products = products.items;
+      this.loader = products.loading;
+      this.hasMore = products.hasMore;
+    });
+    this.store.dispatch(getProductsPending({ page: this.page }));
+    // this.search.valueChanges.subscribe(data => {
+    //   this.search = data;
+    //   console.log(this.search);
     // });
-    this.products$ = this.store.select('products', 'items');
-    this.store.dispatch(getProductsPending({}));
+  }
+  public searchProduct() {}
+  public onScroll() {
+    if (!this.hasMore) {
+      return;
+    }
+    this.page += 1;
+    this.store.dispatch(getProductsPending({ page: this.page }));
   }
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {
@@ -47,7 +55,6 @@ export class ProductsComponent implements OnInit {
     });
   }
   public editProduct(product?: IProduct): void {
-    console.log(product);
     this._modalService.open({
       component: ProductsDialogComponent,
       context: {
@@ -57,7 +64,7 @@ export class ProductsComponent implements OnInit {
             this.productsService
               .editProducts({ ...product, ...value })
               .subscribe((p: IProduct) => {
-                console.log(p);
+                // console.log(p);
                 const index = this.data.findIndex(v => {
                   return v._id === p._id;
                 });

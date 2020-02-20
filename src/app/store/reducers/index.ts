@@ -5,17 +5,17 @@ import {
 } from 'src/app/content/products/store/reducers/product.reducer';
 import {
   ICategoryState,
-  reducerCategory,
+  reducerCategories,
 } from 'src/app/content/categories/store/reducers/category.reducer';
 import { reducerAuth, IAuthState } from './authreducer';
 
 export interface IStore {
-  product: IProductState;
-  category: ICategoryState;
+  products: IProductState;
+  categories: ICategoryState;
   auth: IAuthState;
 }
 export const reducers: ActionReducerMap<any> = {
-  product: reducerProduct,
-  category: reducerCategory,
+  products: reducerProduct,
+  categories: reducerCategories,
   auth: reducerAuth,
 };

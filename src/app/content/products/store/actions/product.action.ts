@@ -3,11 +3,11 @@ import { IProductState, IProduct } from '../reducers/product.reducer';
 // GET
 export const getProductsPending = createAction(
   '[Product] Get product pending',
-  props<{ text?: string }>(),
+  props<{ text?: string; page?: number }>(),
 );
 export const getProductsSuccess = createAction(
   '[Product] Get product success',
-  props<{ products: IProduct[] }>(),
+  props<{ products?: IProduct[]; hasMore: boolean }>(),
 );
 export const getProductsError = createAction('[Product] Get product error');
 // CREATE

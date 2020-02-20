@@ -2,13 +2,13 @@ import { createAction, props } from '@ngrx/store';
 import { ICategoryState, ICategory } from '../reducers/category.reducer';
 
 export const getCategoriesPending = createAction(
-  '[Category] Get category pending',
+  '[Category] Get categories pending',
 );
 export const getCategoriesSuccess = createAction(
-  '[Category] Get category success',
+  '[Category] Get categories success',
   props<{ categories: ICategory[] }>(),
 );
-export const getCategoriesError = createAction('[Category] Get category error');
+export const getCategoriesError = createAction('[Category] Get categories error');
 
 export const createCategoryPending = createAction(
   '[Category] Create category pending',

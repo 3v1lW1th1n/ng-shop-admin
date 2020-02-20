@@ -1298,7 +1298,7 @@ form.form-inline .form-group
 
     &__row
         display: grid
-        grid: auto-flow/70px calc(20% - 80px) 50% 9% 9% 5% 6%
+        grid: auto-flow/70px 24% 40% 9% 9% 5% 6%
         text-decoration: none
 
     &__cell
@@ -1401,6 +1401,14 @@ form.form-inline .form-group
         -webkit-box-pack: center
         justify-content: center
         color: var(--grey)
+.sortable-table__cell
+    p
+        display: -webkit-box
+        -webkit-line-clamp: 3
+        -webkit-box-orient: vertical
+        overflow: hidden
+        text-align: justify
+        text-overflow: ellipsis
 
 .sortable-list
     position: relative

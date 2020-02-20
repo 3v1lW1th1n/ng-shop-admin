@@ -15,7 +15,13 @@
     <form class="form-inline">
       <div class="form-group">
         <label class="form-label">Filter by:</label>
-        <input type="text" class="form-control" placeholder="Product name" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Product name"
+          (change)="searchProduct()"
+          [formControl]="search"
+        />
       </div>
       <div class="form-group" data-elem="sliderContainer">
         <label class="form-label">Price:</label>
@@ -41,7 +47,13 @@
       </div>
     </form>
   </div>
-  <div class="sortable-table">
+  <div
+    class="sortable-table"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  >
     <div class="sortable-table__header sortable-table__row">
       <div class="sortable-table__cell">
         <span>Image</span>
@@ -69,10 +81,7 @@
     </div>
 
     <div data-elem="body" class="sortable-table__body">
-      <div
-        *ngFor="let product of products$ | async"
-        class="sortable-table__row"
-      >
+      <div *ngFor="let product of products" class="sortable-table__row">
         <div class="sortable-table__cell ">
           <img
             class="sortable-table-image "
@@ -84,7 +93,7 @@
           {{ product.name }}
         </div>
         <div class="sortable-table__cell ">
-          {{ product.description }}
+          <p>{{ product.description }}</p>
         </div>
         <div class="sortable-table__cell ">
           {{ product.price }}

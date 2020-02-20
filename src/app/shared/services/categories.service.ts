@@ -26,7 +26,7 @@ export class CategoriesService {
   //   return this.http.delete<ICategory>(`/categories/${category._id}`);
   // }
 
-  public getSubcategories(): Observable<ISubcategory[]> {
-    return this.http.get<ISubcategory[]>(`/categories/sub`);
-  }
+  // public getSubcategories(): Observable<ISubcategory[]> {
+  //   return this.http.get<ISubcategory[]>(`/categories/sub`);
+  // }
 }

@@ -17,6 +17,7 @@ import {
 
 export interface IProductState {
   items: IProduct[];
+  hasMore: boolean;
   loading: boolean;
 }
 
@@ -35,6 +36,7 @@ export interface IProduct {
 const productReducer = createReducer(
   {
     items: [],
+    hasMore: true,
     loading: false,
   },
   // GET
@@ -42,8 +44,9 @@ const productReducer = createReducer(
     ...state,
     loading: true,
   })),
-  on(getProductsSuccess, (_state: IProductState, { products }) => ({
-    items: products,
+  on(getProductsSuccess, (state: IProductState, { products }) => ({
+    ...state,
+    items: [...state.items, ...products],
     loading: false,
   })),
   on(getProductsError, (state: IProductState) => ({

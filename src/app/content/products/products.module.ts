@@ -7,10 +7,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './store/effects/product.effect';
 import { StoreModule } from '@ngrx/store';
 import { reducerProduct } from './store/reducers/product.reducer';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [ProductsComponent, ProductsDialogComponent],
   imports: [
+    InfiniteScrollModule,
     ProductsRoutingModule,
     SharedModule,
     StoreModule.forFeature('products', reducerProduct),

@@ -21,7 +21,7 @@ export interface ISubcategory {
   name: String;
   idCategory: String;
 }
-const categoryReducer = createReducer(
+const categoriesReducer = createReducer(
   {
     items: [],
     loading: false,
@@ -46,9 +46,9 @@ const categoryReducer = createReducer(
   })),
 );
 
-export function reducerCategory(
+export function reducerCategories(
   state: ICategoryState | undefined,
   action: any,
 ) {
-  return categoryReducer(state, action);
+  return categoriesReducer(state, action);
 }

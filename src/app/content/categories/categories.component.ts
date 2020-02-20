@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
   public panelOpenState = false;
   public categories: ICategory[];
   public subCategories: ISubcategory[];
-  public isOpen = true;
+  public isOpen = [];
   public data: any;
   public categories$!: Observable<ICategory[]>;
 
@@ -34,14 +34,9 @@ export class CategoriesComponent implements OnInit {
     //   this.categories = data;
     this.categories$ = this.store.select('categories', 'items');
     this.store.dispatch(getCategoriesPending());
-
-    // this.categoriesService.getSubcategories().subscribe(data => {
-    //   this.subCategories = data;
-    //   console.log(this.subCategories);
-    // });
   }
-  public categoryClick() {
-    this.isOpen = !this.isOpen;
+  public categoryClick(index: number) {
+    this.isOpen[index] = !this.isOpen[index];
   }
   public addSubcategory(category?: ICategory): void {
     this._modalService.open({

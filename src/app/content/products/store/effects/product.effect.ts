@@ -31,10 +31,13 @@ export class ProductsEffects {
   public getProduct$: Observable<any> = createEffect(() =>
     this.actions.pipe(
       ofType(getProductsPending),
-      switchMap(search => {
-        return this.productsService.getProducts(search).pipe(
+      switchMap(props => {
+        return this.productsService.getProducts(props).pipe(
           map((products: IProduct[]) => {
-            return getProductsSuccess({ products });
+            if (products.length < 20) {
+              return getProductsSuccess({ products, hasMore: false });
+            }
+            return getProductsSuccess({ products, hasMore: true });
           }),
           catchError(err => {
             console.log(err);
