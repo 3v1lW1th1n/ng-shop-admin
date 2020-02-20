@@ -1,21 +1,23 @@
-import {
-  getProductError,
-  getProductSuccess,
-  getProductPending,
-  createProductPending,
-  createProductSuccess,
-  createProductError,
-  updateProductPending,
-  updateProductSuccess,
-  updateProductError,
-  deleteProductPending,
-  deleteProductSuccess,
-  deleteProductError,
-} from './../actions/product.action';
 import { createReducer, on } from '@ngrx/store';
+// tslint:disable-next-line: max-line-length
+import {
+  getProductsPending,
+  getProductsSuccess,
+  getProductsError,
+  createProductsPending,
+  createProductsSuccess,
+  createProductsError,
+  updateProductsPending,
+  updateProductsSuccess,
+  updateProductsError,
+  deleteProductsPending,
+  deleteProductsSuccess,
+  deleteProductsError,
+} from '../actions/product.action';
 
 export interface IProductState {
-  item: IProduct;
+  items: IProduct[];
+  hasMore: boolean;
   loading: boolean;
 }
 
@@ -33,65 +35,60 @@ export interface IProduct {
 }
 const productReducer = createReducer(
   {
-    item: {
-      _id: '',
-      name: '',
-      description: '',
-      price: 1,
-      status: true,
-      images: [],
-    },
+    items: [],
+    hasMore: true,
     loading: false,
   },
   // GET
-  on(getProductPending, (state: IProductState) => ({
+  on(getProductsPending, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
-  on(getProductSuccess, (state: IProductState) => ({
+  on(getProductsSuccess, (state: IProductState, { products }) => ({
     ...state,
+    items: [...state.items, ...products],
     loading: false,
   })),
-  on(getProductError, (state: IProductState) => ({
+  on(getProductsError, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
   // CREATE
-  on(createProductPending, (state: IProductState) => ({
+  on(createProductsPending, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
-  on(createProductSuccess, (state: IProductState) => ({
+  on(createProductsSuccess, (state: IProductState) => ({
     ...state,
     loading: false,
   })),
-  on(createProductError, (state: IProductState) => ({
+  on(createProductsError, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
   // UPDATE
-  on(updateProductPending, (state: IProductState) => ({
+  on(updateProductsPending, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
-  on(updateProductSuccess, (state: IProductState) => ({
+  on(updateProductsSuccess, (state: IProductState) => ({
     ...state,
     loading: false,
   })),
-  on(updateProductError, (state: IProductState) => ({
+  on(updateProductsError, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
   // DELETE
-  on(deleteProductPending, (state: IProductState) => ({
+  on(deleteProductsPending, (state: IProductState) => ({
     ...state,
     loading: true,
   })),
-  on(deleteProductSuccess, (state: IProductState) => ({
+  on(deleteProductsSuccess, (state: IProductState) => ({
     ...state,
     loading: false,
   })),
-  on(deleteProductError, (state: IProductState) => ({
+  on(deleteProductsError, (state: IProductState) => ({
     ...state,
     loading: true,
   })),

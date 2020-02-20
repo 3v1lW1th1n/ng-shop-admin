@@ -15,7 +15,13 @@
     <form class="form-inline">
       <div class="form-group">
         <label class="form-label">Filter by:</label>
-        <input type="text" class="form-control" placeholder="Product name" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Product name"
+          (change)="searchProduct()"
+          [formControl]="search"
+        />
       </div>
       <div class="form-group" data-elem="sliderContainer">
         <label class="form-label">Price:</label>
@@ -32,16 +38,15 @@
           <span>$4000</span>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Status:</label>
-        <select class="form-control" data-elem="filterStatus">
-          <option value="true" selected="">Enabled</option>
-          <option value="false">Disabled</option>
-        </select>
-      </div>
     </form>
   </div>
-  <div class="sortable-table">
+  <div
+    class="sortable-table"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  >
     <div class="sortable-table__header sortable-table__row">
       <div class="sortable-table__cell">
         <span>Image</span>
@@ -62,9 +67,6 @@
         <span>Subcategory</span>
       </div>
 
-      <div class="sortable-table__cell ">
-        <span>Status</span>
-      </div>
       <div class="sortable-table__cell "></div>
     </div>
 
@@ -73,26 +75,23 @@
         <div class="sortable-table__cell ">
           <img
             class="sortable-table-image "
-            src="{{ product.images[0]?.url }}"
+            src="{{ (product?.images)[0]?.url }}"
             alt="img"
           />
         </div>
         <div class="sortable-table__cell ">
-          {{ product.name }}
+          {{ product?.name }}
         </div>
         <div class="sortable-table__cell ">
-          {{ product.description }}
+          <p>{{ product?.description }}</p>
         </div>
         <div class="sortable-table__cell ">
-          {{ product.price }}
+          {{ product?.price }}
         </div>
         <div class="sortable-table__cell ">
-          <!-- {{ product.subcategory }} -->111
+          <!-- {{ product.subCategory }} -->
+          Прочее
         </div>
-        <div class="sortable-table__cell ">
-          {{ product.status }}
-        </div>
-
         <div class="sortable-table__cell table__cell_controls">
           <mat-icon class="btn-edit" (click)="editProduct(product)"
             >edit</mat-icon

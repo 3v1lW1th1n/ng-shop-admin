@@ -8,8 +8,9 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
   public token: string;
 
-  public getProducts(text): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(`/products?text=${text}`);
+  public getProducts({ text, page }: any): Observable<IProduct[]> {
+    const query = text ? `text=${text}&page=${page}` : '';
+    return this.http.get<IProduct[]>(`/products?${query}`);
   }
   public addProducts(product: IProduct): Observable<IProduct> {
     return this.http.post<IProduct>(`/products`, product);

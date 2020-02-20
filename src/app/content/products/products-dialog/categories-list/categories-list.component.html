@@ -1,0 +1,24 @@
+<div class="categories">
+  <div class="categories-name" (click)="categoryToggle()">
+    {{ currentSubCategory?.name }}
+  </div>
+  <div *ngIf="isOpen" class="categories-list">
+    <p class="categories-list-all" (click)="subCategoryToggle(defaultValue)">
+      {{ defaultValue.name }}
+    </p>
+    <ul class="categories-list-menu" *ngFor="let category of categories">
+      <li>
+        <p class="categories-list-menu-category">{{ category.name }}</p>
+        <ul *ngFor="let subCategory of category.subCategories">
+          <li
+            (click)="subCategoryToggle(subCategory)"
+            class="categories-list-menu-subcategory"
+            [ngClass]="{ active: currentSubCategory?._id === subCategory._id }"
+          >
+            {{ subCategory.name }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,10 +1,16 @@
+import { createCategoryPending } from './../categories/store/actions/category.action';
 import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
 import { ModalService } from '@modal/modal.service';
-import { IProduct } from './store/reducers/product.reducer';
+import { IProduct, IProductState } from './store/reducers/product.reducer';
+import { Store } from '@ngrx/store';
+import {
+  getProductsPending,
+  updateProductsPending,
+  createProductsPending,
+} from './store/actions/product.action';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
@@ -16,23 +22,32 @@ export class ProductsComponent implements OnInit {
   @Input()
   public product: IProduct;
   public products: IProduct[];
-  displayedColumns: string[] = [
-    'name',
-    'description',
-    'price',
-    'status',
-    'category',
-    'controls',
-  ];
   public data = [];
+  public page = 1;
+  public hasMore = true;
+  public loader: boolean;
+  public search = new FormControl('');
   constructor(
     private productsService: ProductsService,
     private _modalService: ModalService,
+    private store: Store<any>,
   ) {}
   ngOnInit() {
-    this.productsService.getProducts('').subscribe(data => {
-      this.products = data;
+    this.store.select('products').subscribe(products => {
+      this.products = products.items;
+      // console.log(this.products);
+      this.loader = products.loading;
+      this.hasMore = products.hasMore;
     });
+    this.store.dispatch(getProductsPending({ page: this.page }));
+  }
+  public searchProduct() {}
+  public onScroll() {
+    if (!this.hasMore) {
+      return;
+    }
+    this.page += 1;
+    this.store.dispatch(getProductsPending({ page: this.page }));
   }
   public deleteProduct(product: IProduct): void {
     this.productsService.deleteProducts(product).subscribe(data => {
@@ -42,29 +57,31 @@ export class ProductsComponent implements OnInit {
     });
   }
   public editProduct(product?: IProduct): void {
-    console.log(product);
     this._modalService.open({
       component: ProductsDialogComponent,
       context: {
         product,
         save: ({ isEdit, value }) => {
+          console.log(value);
           if (isEdit) {
             this.productsService
               .editProducts({ ...product, ...value })
               .subscribe((p: IProduct) => {
-                console.log(p);
+                // console.log(p);
                 const index = this.data.findIndex(v => {
                   return v._id === p._id;
                 });
                 this.data.splice(index, 1, p);
                 this.products = this.data;
               });
+            // this.store.dispatch(updateProductsPending());
             this._modalService.close();
             return;
           }
           this.productsService.addProducts(value).subscribe(p => {
             this.products.push(p);
           });
+          // this.store.dispatch(createProductsPending(value));
           this._modalService.close();
         },
         close: () => {

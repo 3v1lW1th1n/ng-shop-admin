@@ -1,3 +1,4 @@
+import { getCategoriesSuccess } from './../actions/category.action';
 import { IStore } from 'src/app/store/reducers';
 import {
   switchMap,
@@ -10,7 +11,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { CategoriesService } from '@shared/services/categories.service';
-import { getCategoryPending } from '../actions/category.action';
+import { getCategoriesPending } from '../actions/category.action';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,14 @@ export class CategoriesEffects {
     private categoriesService: CategoriesService,
   ) {}
 
-  public getCategory$: Observable<any> = createEffect(() =>
-    this.actions.pipe(ofType(getCategoryPending)),
+  public getCategories$: Observable<any> = createEffect(() =>
+    this.actions.pipe(
+      ofType(getCategoriesPending),
+      switchMap(() => {
+        return this.categoriesService
+          .getCategories()
+          .pipe(map(categories => getCategoriesSuccess({ categories })));
+      }),
+    ),
   );
 }

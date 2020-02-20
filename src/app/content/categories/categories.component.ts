@@ -4,6 +4,9 @@ import { CategoriesService } from '@shared/services/categories.service';
 import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categories-dialog.component';
 import { ModalService } from '@modal/modal.service';
 import { ICategory, ISubcategory } from './store/reducers/category.reducer';
+import { getCategoriesPending } from './store/actions/category.action';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -16,26 +19,24 @@ export class CategoriesComponent implements OnInit {
   public panelOpenState = false;
   public categories: ICategory[];
   public subCategories: ISubcategory[];
-  public isOpen = true;
+  public isOpen = [];
   public data: any;
+  public categories$!: Observable<ICategory[]>;
 
   constructor(
     private _modalService: ModalService,
     private categoriesService: CategoriesService,
+    private store: Store<any>,
   ) {}
 
   ngOnInit() {
-    this.categoriesService.getCategories().subscribe(data => {
-      this.categories = data;
-      // this.dataSource = new MatTableDataSource(this.data);
-    });
-    // this.categoriesService.getSubcategories().subscribe(data => {
-    //   this.subCategories = data;
-    //   console.log(this.subCategories);
-    // });
+    // this.categoriesService.getCategories().subscribe(data => {
+    //   this.categories = data;
+    this.categories$ = this.store.select('categories', 'items');
+    this.store.dispatch(getCategoriesPending());
   }
-  public categoryClick() {
-    this.isOpen = !this.isOpen;
+  public categoryClick(index: number) {
+    this.isOpen[index] = !this.isOpen[index];
   }
   public addSubcategory(category?: ICategory): void {
     this._modalService.open({

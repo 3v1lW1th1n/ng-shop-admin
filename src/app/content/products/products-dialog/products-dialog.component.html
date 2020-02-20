@@ -33,15 +33,17 @@
       placeholder="Price"
     />
     <label class="product-form-label">Category</label>
-    <select formControlName="category" class="product-form-select">
-      <option [value]="true">{{ 0000 }}</option>
-    </select>
-    <!-- *ngFor="let category of categories" -->
-    <label class="product-form-label">Status</label>
+
+    <app-categories-list
+      [categories]="categories$ | async"
+      formControlName="subCategory"
+    ></app-categories-list>
+
+    <!-- <label class="product-form-label">Status</label>
     <select formControlName="status" class="product-form-select">
       <option [value]="true">Enabled</option>
       <option [value]="false">Disabled</option>
-    </select>
+    </select> -->
   </div>
 
   <div class="btnWrapp">
