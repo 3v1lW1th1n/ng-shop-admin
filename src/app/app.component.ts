@@ -8,7 +8,7 @@ export class AppComponent {
   title = 'shop-admin';
   public isOpen = true;
   public changeSidebar(value) {
-    console.log(value);
+  
     this.isOpen = !this.isOpen;
   }
 }

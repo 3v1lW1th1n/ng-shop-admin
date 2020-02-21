@@ -1,20 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
+import {
+  createReducer,
+  on,
+  createSelector,
+  createFeatureSelector,
+} from '@ngrx/store';
 // tslint:disable-next-line: max-line-length
 import {
-  getProductsPending,
   getProductsSuccess,
-  getProductsError,
-  createProductsPending,
-  createProductsSuccess,
-  createProductsError,
-  updateProductsPending,
-  updateProductsSuccess,
-  updateProductsError,
-  deleteProductsPending,
-  deleteProductsSuccess,
-  deleteProductsError,
+  deleteProductSuccess,
+  createProductSuccess,
+  updateProductSuccess,
 } from '../actions/product.action';
-
+import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 export interface IProductState {
   items: IProduct[];
   hasMore: boolean;
@@ -26,74 +23,47 @@ export interface IProductImage {
   source: string;
 }
 export interface IProduct {
-  _id: String;
-  name: String;
-  description: String;
+  _id: string;
+  name: string;
+  description: string;
   price: number;
   status: boolean;
   images: IProductImage[];
 }
-const productReducer = createReducer(
-  {
-    items: [],
-    hasMore: true,
-    loading: false,
-  },
-  // GET
-  on(getProductsPending, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  on(getProductsSuccess, (state: IProductState, { products }) => ({
-    ...state,
-    items: [...state.items, ...products],
-    loading: false,
-  })),
-  on(getProductsError, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  // CREATE
-  on(createProductsPending, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  on(createProductsSuccess, (state: IProductState) => ({
-    ...state,
-    loading: false,
-  })),
-  on(createProductsError, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  // UPDATE
-  on(updateProductsPending, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  on(updateProductsSuccess, (state: IProductState) => ({
-    ...state,
-    loading: false,
-  })),
-  on(updateProductsError, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  // DELETE
-  on(deleteProductsPending, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
-  on(deleteProductsSuccess, (state: IProductState) => ({
-    ...state,
-    loading: false,
-  })),
-  on(deleteProductsError, (state: IProductState) => ({
-    ...state,
-    loading: true,
-  })),
+
+export const productsAdapter: EntityAdapter<IProduct> = createEntityAdapter<
+  IProduct
+>({
+  selectId: (product: IProduct) => product._id,
+});
+
+export const initialState: EntityState<IProduct> = productsAdapter.getInitialState(
+  {},
 );
 
-export function reducerProduct(state: IProductState | undefined, action: any) {
-  return productReducer(state, action);
-}
+export const productsReducer = createReducer(
+  initialState,
+  // GET
+  on(getProductsSuccess, (state, { products }) => {
+    return productsAdapter.addMany(products, state);
+  }),
+  // CREATE
+  on(createProductSuccess, (state, { product }) => {
+    return productsAdapter.addOne(product, state);
+  }),
+  // UPDATE
+  on(updateProductSuccess, (state, { product: { _id: id, ...changes } }) => {
+    return productsAdapter.updateOne({ id, changes }, state);
+  }),
+  // DELETE
+  on(deleteProductSuccess, (state, { product: { _id: id } }) => {
+    return productsAdapter.removeOne(id, state);
+  }),
+);
+
+export const { selectAll } = productsAdapter.getSelectors();
+
+export const selectProductsState = createFeatureSelector<EntityState<IProduct>>(
+  'products',
+);
+export const selectAllProducts = createSelector(selectProductsState, selectAll);

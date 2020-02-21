@@ -1,18 +1,14 @@
 import {
   getProductsPending,
-  createProductsPending,
-  updateProductsPending,
-  deleteProductsPending,
   getProductsSuccess,
+  createProductPending,
+  createProductSuccess,
+  updateProductPending,
+  updateProductSuccess,
+  deleteProductPending,
+  deleteProductSuccess,
 } from './../actions/product.action';
-import { IStore } from 'src/app/store/reducers';
-import {
-  switchMap,
-  map,
-  withLatestFrom,
-  catchError,
-  tap,
-} from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable, of, from, EMPTY } from 'rxjs';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
@@ -49,16 +45,50 @@ export class ProductsEffects {
   );
   public createProduct$: Observable<any> = createEffect(() =>
     this.actions.pipe(
-      ofType(createProductsPending),
-      // switchMap(product => {
-      //   return this.productsService.addProducts(product);
-      // }),
+      ofType(createProductPending),
+      switchMap(({ product }) => {
+        return this.productsService.addProduct(product).pipe(
+          map(product => {
+            return createProductSuccess({ product });
+          }),
+          catchError(err => {
+            console.log(err);
+            return EMPTY;
+          }),
+        );
+      }),
     ),
   );
   public updateProduct$: Observable<any> = createEffect(() =>
-    this.actions.pipe(ofType(updateProductsPending)),
+    this.actions.pipe(
+      ofType(updateProductPending),
+      switchMap(({ product }) => {
+        return this.productsService.editProduct(product).pipe(
+          map(() => {
+            return updateProductSuccess({ product });
+          }),
+          catchError(err => {
+            console.log(err);
+            return EMPTY;
+          }),
+        );
+      }),
+    ),
   );
   public deleteProduct$: Observable<any> = createEffect(() =>
-    this.actions.pipe(ofType(deleteProductsPending)),
+    this.actions.pipe(
+      ofType(deleteProductPending),
+      switchMap(({ product }) => {
+        return this.productsService.deleteProduct(product).pipe(
+          map(() => {
+            return deleteProductSuccess({ product });
+          }),
+          catchError(err => {
+            console.log(err);
+            return EMPTY;
+          }),
+        );
+      }),
+    ),
   );
 }

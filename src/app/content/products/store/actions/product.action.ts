@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IProductState, IProduct } from '../reducers/product.reducer';
+import { IProduct } from '../reducers/product.reducer';
 // GET
 export const getProductsPending = createAction(
   '[Product] Get product pending',
@@ -9,38 +9,30 @@ export const getProductsSuccess = createAction(
   '[Product] Get product success',
   props<{ products?: IProduct[]; hasMore: boolean }>(),
 );
-export const getProductsError = createAction('[Product] Get product error');
 // CREATE
-export const createProductsPending = createAction(
+export const createProductPending = createAction(
   '[Product] Create  product pending',
-  // props<{ product: IProduct }>(),
+  props<{ product: IProduct }>(),
 );
-export const createProductsSuccess = createAction(
+export const createProductSuccess = createAction(
   '[Product] Create  product success',
-  // props<{ products: IProductState }>(),
-);
-export const createProductsError = createAction(
-  '[Product] Create product error',
+  props<{ product: IProduct }>(),
 );
 // UPDATE
-export const updateProductsPending = createAction(
+export const updateProductPending = createAction(
   '[Product] Update product pending',
+  props<{ product: IProduct }>(),
 );
-export const updateProductsSuccess = createAction(
+export const updateProductSuccess = createAction(
   '[Product] Update  product success',
-  props<{ products: IProductState }>(),
-);
-export const updateProductsError = createAction(
-  '[Product] Update product error',
+  props<{ product: IProduct }>(),
 );
 // DELETE
-export const deleteProductsPending = createAction(
+export const deleteProductPending = createAction(
   '[Product] Delete product pending',
+  props<{ product: IProduct }>(),
 );
-export const deleteProductsSuccess = createAction(
+export const deleteProductSuccess = createAction(
   '[Product] Delete  product success',
-  props<{ products: IProductState }>(),
-);
-export const deleteProductsError = createAction(
-  '[Product] Delete product error',
+  props<{ product: IProduct }>(),
 );

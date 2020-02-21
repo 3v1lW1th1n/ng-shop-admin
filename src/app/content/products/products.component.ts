@@ -1,14 +1,14 @@
-import { createCategoryPending } from './../categories/store/actions/category.action';
 import { ProductsService } from './../../shared/services/products.service';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
 import { ModalService } from '@modal/modal.service';
-import { IProduct, IProductState } from './store/reducers/product.reducer';
+import { IProduct, selectAllProducts } from './store/reducers/product.reducer';
 import { Store } from '@ngrx/store';
 import {
   getProductsPending,
-  updateProductsPending,
-  createProductsPending,
+  deleteProductPending,
+  createProductPending,
+  updateProductPending,
 } from './store/actions/product.action';
 import { FormControl } from '@angular/forms';
 
@@ -23,21 +23,14 @@ export class ProductsComponent implements OnInit {
   public product: IProduct;
   public products: IProduct[];
   public data = [];
-  public page = 1;
+  public page = 2;
   public hasMore = true;
   public loader: boolean;
   public search = new FormControl('');
-  constructor(
-    private productsService: ProductsService,
-    private _modalService: ModalService,
-    private store: Store<any>,
-  ) {}
+  constructor(private _modalService: ModalService, private store: Store<any>) {}
   ngOnInit() {
-    this.store.select('products').subscribe(products => {
-      this.products = products.items;
-      // console.log(this.products);
-      this.loader = products.loading;
-      this.hasMore = products.hasMore;
+    this.store.select(selectAllProducts).subscribe(products => {
+      this.products = products;
     });
     this.store.dispatch(getProductsPending({ page: this.page }));
   }
@@ -50,11 +43,7 @@ export class ProductsComponent implements OnInit {
     this.store.dispatch(getProductsPending({ page: this.page }));
   }
   public deleteProduct(product: IProduct): void {
-    this.productsService.deleteProducts(product).subscribe(data => {
-      const index = this.data.findIndex(item => item._id === product._id);
-      this.data.splice(index, 1);
-      this.products = this.data;
-    });
+    this.store.dispatch(deleteProductPending({ product }));
   }
   public editProduct(product?: IProduct): void {
     this._modalService.open({
@@ -62,26 +51,16 @@ export class ProductsComponent implements OnInit {
       context: {
         product,
         save: ({ isEdit, value }) => {
-          console.log(value);
           if (isEdit) {
-            this.productsService
-              .editProducts({ ...product, ...value })
-              .subscribe((p: IProduct) => {
-                // console.log(p);
-                const index = this.data.findIndex(v => {
-                  return v._id === p._id;
-                });
-                this.data.splice(index, 1, p);
-                this.products = this.data;
-              });
-            // this.store.dispatch(updateProductsPending());
+            this.store.dispatch(
+              updateProductPending({ product: { ...product, ...value } }),
+            );
             this._modalService.close();
             return;
           }
-          this.productsService.addProducts(value).subscribe(p => {
-            this.products.push(p);
-          });
-          // this.store.dispatch(createProductsPending(value));
+          this.store.dispatch(
+            createProductPending({ product: { ...value, status: true } }),
+          );
           this._modalService.close();
         },
         close: () => {

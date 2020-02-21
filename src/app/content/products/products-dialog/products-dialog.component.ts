@@ -1,13 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
-import { ICategory } from '../../categories/store/reducers/category.reducer';
-import { Observable } from 'rxjs';
+import { selectAllCategories } from '../../categories/store/reducers/category.reducer';
 import { getCategoriesPending } from '../../categories/store/actions/category.action';
 import { Store } from '@ngrx/store';
 import { IStore } from 'src/app/store/reducers';
@@ -17,14 +11,14 @@ import { IStore } from 'src/app/store/reducers';
   styleUrls: ['./products-dialog.component.sass'],
 })
 export class ProductsDialogComponent implements OnInit {
-  public categories$!: Observable<ICategory[]>;
+  public categories: any;
   @Input()
   public set product(value) {
     if (!value) {
       return;
     }
     this.isEdit = true;
-    console.log(value);
+
     this.form.patchValue(value);
   }
   public close: () => void;
@@ -49,7 +43,9 @@ export class ProductsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.categories$ = this.store.select('categories', 'items');
+    this.store.select(selectAllCategories).subscribe(categories => {
+      this.categories = categories;
+    });
     this.store.dispatch(getCategoriesPending());
   }
 }
