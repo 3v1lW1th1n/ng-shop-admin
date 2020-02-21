@@ -1,10 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
 @Component({
   selector: 'app-sub-categories-dialog',
@@ -13,7 +8,7 @@ import { ValidatorsService } from '@shared/services/validators.service';
 })
 export class SubCategoriesDialogComponent implements OnInit {
   @Input()
-  public set category(value) {
+  public set subCategory(value) {
     if (!value) {
       return;
     }

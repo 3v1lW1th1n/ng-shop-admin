@@ -14,7 +14,7 @@ export class ValidatorsService {
       value.toLowerCase() === 'samsung'.toLowerCase()
         ? { nameExist: true }
         : null;
-    // console.log(isInvalid);
+
     return of(isInvalid);
   }
 }

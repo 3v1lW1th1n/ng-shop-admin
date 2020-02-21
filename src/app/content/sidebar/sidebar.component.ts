@@ -10,6 +10,5 @@ export class SidebarComponent {
   @Output() onOpen: EventEmitter<string> = new EventEmitter();
   public toggleSidebar(value: string) {
     this.onOpen.emit(value);
-    console.log('child');
   }
 }

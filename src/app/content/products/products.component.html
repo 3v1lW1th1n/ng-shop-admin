@@ -73,11 +73,11 @@
     <div data-elem="body" class="sortable-table__body">
       <div *ngFor="let product of products" class="sortable-table__row">
         <div class="sortable-table__cell ">
-          <img
+          <!-- <img
             class="sortable-table-image "
-            src="{{ (product?.images)[0]?.url }}"
+            src="{{ product?.images[0]?.url }}"
             alt="img"
-          />
+          /> -->
         </div>
         <div class="sortable-table__cell ">
           {{ product?.name }}

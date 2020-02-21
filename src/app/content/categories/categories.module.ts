@@ -1,3 +1,4 @@
+import { SubCategoriesEffects } from './store/effects/sub-category.effect';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesRoutingModule } from './categories-routing.module';
@@ -20,7 +21,7 @@ import { reducerCategories } from './store/reducers/category.reducer';
     CategoriesRoutingModule,
     SharedModule,
     StoreModule.forFeature('categories', reducerCategories),
-    EffectsModule.forFeature([CategoriesEffects]),
+    EffectsModule.forFeature([CategoriesEffects, SubCategoriesEffects]),
   ],
 
   exports: [SharedModule],

@@ -3,7 +3,7 @@
     <h1 class="page-title">Product categories</h1>
     <button class="btn" (click)="editCategory()">Add category</button>
   </div>
-  <div *ngFor="let category of categories$ | async; let i = index">
+  <div *ngFor="let category of categories; let i = index">
     <div
       class="category"
       (click)="categoryClick(i)"
@@ -20,16 +20,35 @@
           >
             <li class="categories__sortable-list-item sortable-list__item">
               {{ subCategory.name }}
-              <span>{{ subCategory.productsCount }} products</span>
+              <div class="subcategory-btn">
+                <span> {{ subCategory.productsCount }} products </span>
+                <div>
+                  <mat-icon
+                    class="btn-edit"
+                    (click)="editSubCategory(category, subCategory)"
+                    >edit</mat-icon
+                  >
+                  <mat-icon
+                    class="btn-edit"
+                    (click)="deleteSubCategory(subCategory)"
+                    >delete</mat-icon
+                  >
+                </div>
+              </div>
             </li>
           </ul>
         </div>
       </div>
       <div class="table-field-controls">
-        <mat-icon class="btn-edit" (click)="addSubcategory()">add</mat-icon>
-        <mat-icon class="btn-edit" (click)="editCategory(category)"
-          >edit</mat-icon
+        <mat-icon class="btn-edit" (click)="editSubCategory(category)"
+          >add</mat-icon
         >
+        <mat-icon class="btn-edit" (click)="editCategory(category)"
+          >edit
+        </mat-icon>
+        <mat-icon class="btn-edit" (click)="deleteCategory(category)"
+          >delete
+        </mat-icon>
       </div>
     </div>
   </div>

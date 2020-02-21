@@ -6,7 +6,7 @@ import { ProductsDialogComponent } from './products-dialog/products-dialog.compo
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './store/effects/product.effect';
 import { StoreModule } from '@ngrx/store';
-import { reducerProduct } from './store/reducers/product.reducer';
+import { productsReducer } from './store/reducers/product.reducer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { reducerCategories } from '../categories/store/reducers/category.reducer';
 import { CategoriesEffects } from '../categories/store/effects/category.effect';
@@ -22,7 +22,7 @@ import { CategoriesListComponent } from './products-dialog/categories-list/categ
     InfiniteScrollModule,
     ProductsRoutingModule,
     SharedModule,
-    StoreModule.forFeature('products', reducerProduct),
+    StoreModule.forFeature('products', productsReducer),
     EffectsModule.forFeature([ProductsEffects]),
     StoreModule.forFeature('categories', reducerCategories),
     EffectsModule.forFeature([CategoriesEffects]),
