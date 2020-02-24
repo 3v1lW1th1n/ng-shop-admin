@@ -61,6 +61,7 @@ export class ModalComponent implements OnInit {
     if (code !== 27) {
       return;
     }
+    // tslint:disable-next-line: no-unused-expression
     this.modalContext && this.modalContext.destroy();
     this.isOpen = false;
   }

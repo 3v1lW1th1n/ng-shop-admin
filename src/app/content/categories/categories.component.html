@@ -1,11 +1,14 @@
 <div class="categories">
   <div class="content__top-panel">
-    <h1 class="page-title">Product categories</h1>
+    <h1 class="page-title">
+      Product categories
+    </h1>
     <button class="btn" (click)="editCategory()">Add category</button>
   </div>
   <div *ngFor="let category of categories; let i = index">
     <div
       class="category"
+      #category
       (click)="categoryClick(i)"
       [ngClass]="{ category_open: isOpen[i] }"
     >

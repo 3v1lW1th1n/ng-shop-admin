@@ -11,6 +11,7 @@ import {
   deleteCategorySuccess,
 } from '../actions/category.action';
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createSubCategorySuccess } from '../actions/sub-category.action';
 
 // tslint:disable-next-line: max-line-length
 
@@ -45,6 +46,18 @@ export const reducerCategories = createReducer(
   // CREATE
   on(createCategorySuccess, (state, { category }) => {
     return categoriesAdapter.addOne(category, state);
+  }),
+  on(createSubCategorySuccess, (state, { subCategory }) => {
+    return {
+      ...state,
+    };
+    // console.log(subCategory);
+    // console.log('ent', state.entities[subCategory.category].subCategories);
+    // return categoriesAdapter.addOne(
+
+    //   state.entities[subCategory.category].subCategories,
+    // );
+    // return state;
   }),
   // UPDATE
   on(updateCategorySuccess, (state, { category: { _id: id, ...changes } }) => {

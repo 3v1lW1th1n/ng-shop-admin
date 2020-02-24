@@ -1,4 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  AfterViewInit,
+} from '@angular/core';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categories-dialog.component';
 import { ModalService } from '@modal/modal.service';
@@ -38,7 +46,18 @@ export class CategoriesComponent implements OnInit {
   public categories$!: Observable<ICategory[]>;
 
   constructor(private _modalService: ModalService, private store: Store<any>) {}
+  @ViewChild('category') private element: ElementRef;
 
+  @HostListener('click', ['$event']) onClick(e: MouseEvent) {
+    // console.log(this.element);
+    console.log(e);
+    if (!this.element.nativeElement.contains(e.target)) {
+      console.log('outside');
+      this.isOpen = [];
+    } else {
+      console.log('inside');
+    }
+  }
   ngOnInit() {
     this.store.select(selectAllCategories).subscribe(categories => {
       this.categories = categories;
@@ -46,6 +65,7 @@ export class CategoriesComponent implements OnInit {
     this.store.dispatch(getCategoriesPending());
   }
   public categoryClick(index: number) {
+    // console.log(index);
     this.isOpen[index] = !this.isOpen[index];
   }
   public editCategory(category?: ICategory): void {
@@ -72,6 +92,7 @@ export class CategoriesComponent implements OnInit {
       },
     });
   }
+
   public deleteCategory(category: ICategory): void {
     this.store.dispatch(deleteCategoryPending({ category }));
   }

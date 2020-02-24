@@ -8,7 +8,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductsDialogComponent } from '../content/products/products-dialog/products-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
@@ -17,7 +16,7 @@ import { environment } from 'src/environments/environment';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ValidatorsService } from './services/validators.service';
 import { ProductsService } from './services/products.service';
-
+import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
   declarations: [],
   entryComponents: [],
@@ -33,6 +32,7 @@ import { ProductsService } from './services/products.service';
     MatInputModule,
     MatGridListModule,
     MatPaginatorModule,
+    ClickOutsideModule,
   ],
   imports: [MatGridListModule, HttpClientModule],
   providers: [
