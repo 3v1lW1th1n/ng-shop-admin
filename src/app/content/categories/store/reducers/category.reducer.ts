@@ -4,15 +4,14 @@ import {
   createFeatureSelector,
   createSelector,
 } from '@ngrx/store';
+
+import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import {
   getCategoriesSuccess,
   createCategorySuccess,
   updateCategorySuccess,
   deleteCategorySuccess,
-} from '../actions/category.action';
-import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
-
-// tslint:disable-next-line: max-line-length
+} from '@store-category/actions/category.action';
 
 export interface ICategoryState {
   items: ICategory[];

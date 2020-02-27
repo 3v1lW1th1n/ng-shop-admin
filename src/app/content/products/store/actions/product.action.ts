@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IProduct } from '../reducers/product.reducer';
+import { IProduct } from '@store-product/reducers/product.reducer';
 // GET
 export const getProductsPending = createAction(
   '[Product] Get product pending',

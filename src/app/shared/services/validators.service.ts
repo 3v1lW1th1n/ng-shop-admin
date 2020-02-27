@@ -6,9 +6,8 @@ import { of } from 'rxjs';
 @Injectable()
 export class ValidatorsService {
   constructor(public productsService: ProductsService) {}
-  public data: any;
-  public isValid: any;
 
+  public isValid: boolean;
   public nameValidator({ value }: FormControl) {
     const isInvalid =
       value.toLowerCase() === 'samsung'.toLowerCase()

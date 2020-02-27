@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   ICategory,
   ISubcategory,
-} from 'src/app/content/categories/store/reducers/category.reducer';
+} from '@store-category/reducers/category.reducer';
 
 @Injectable()
 export class CategoriesService {

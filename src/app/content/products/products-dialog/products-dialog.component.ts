@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
-import { selectAllCategories } from '../../categories/store/reducers/category.reducer';
-import { getCategoriesPending } from '../../categories/store/actions/category.action';
 import { Store } from '@ngrx/store';
 import { IStore } from 'src/app/store/reducers';
+import { selectAllCategories } from '@store-category/reducers/category.reducer';
+import { getCategoriesPending } from '@store-category/actions/category.action';
 @Component({
   selector: 'app-products-dialog',
   templateUrl: './products-dialog.component.html',
@@ -18,7 +18,6 @@ export class ProductsDialogComponent implements OnInit {
       return;
     }
     this.isEdit = true;
-
     this.form.patchValue(value);
   }
   public close: () => void;

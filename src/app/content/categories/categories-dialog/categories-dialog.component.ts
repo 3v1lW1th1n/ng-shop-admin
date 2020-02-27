@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '@shared/services/validators.service';
 @Component({
@@ -6,7 +6,7 @@ import { ValidatorsService } from '@shared/services/validators.service';
   templateUrl: './categories-dialog.component.html',
   styleUrls: ['./categories-dialog.component.sass'],
 })
-export class CategoriesDialogComponent implements OnInit {
+export class CategoriesDialogComponent {
   @Input()
   public set category(value) {
     if (!value) {
@@ -31,6 +31,4 @@ export class CategoriesDialogComponent implements OnInit {
     private fb: FormBuilder,
     public validatorsService: ValidatorsService,
   ) {}
-
-  ngOnInit() {}
 }

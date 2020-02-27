@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ISubcategory, ICategory } from '../reducers/category.reducer';
+import { ISubcategory } from '@store-category/reducers/category.reducer';
 
 // CREATE
 export const createSubCategoryPending = createAction(

@@ -1,12 +1,14 @@
 import { ActionReducerMap } from '@ngrx/store';
-import {
-  ICategoryState,
-  reducerCategories,
-} from 'src/app/content/categories/store/reducers/category.reducer';
 import { reducerAuth, IAuthState } from './authreducer';
+import { IProductState } from '@store-product/reducers/product.reducer';
+import {
+  reducerCategories,
+  ICategoryState,
+} from '@store-category/reducers/category.reducer';
 
 export interface IStore {
   categories: ICategoryState;
+  products: IProductState;
   auth: IAuthState;
 }
 export const reducers: ActionReducerMap<any> = {

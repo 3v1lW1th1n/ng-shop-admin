@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   ICategory,
   ISubcategory,
-} from 'src/app/content/categories/store/reducers/category.reducer';
+} from '@store-category/reducers/category.reducer';
 
 @Component({
   selector: 'app-categories-list',
@@ -31,7 +31,6 @@ export class CategoriesListComponent implements ControlValueAccessor {
     );
     this.currentSubCategory = currentCategory || this.defaultValue;
   }
-
   registerOnChange(fn: Function) {
     this.onChange = fn;
   }

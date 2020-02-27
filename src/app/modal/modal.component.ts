@@ -31,7 +31,6 @@ export class ModalComponent implements OnInit {
     private _modalService: ModalService,
     private _cfr: ComponentFactoryResolver,
   ) {}
-
   public ngOnInit(): void {
     this._modalService.modalSequence$.subscribe(
       ({ component, resolver, context }: any) => {
@@ -40,13 +39,7 @@ export class ModalComponent implements OnInit {
           return;
         }
         this.isOpen = true;
-        // this.childComponent = resolver.resolveComponentFactory(component);
-        // this.component = component;
         this.childComponent = this._cfr.resolveComponentFactory(component);
-        // this.refInjector = Injector.create({
-        //   providers: [{provide: component, useValue: component}],
-        //   parent: injector,
-        // });
         this.modalContext = this.modal.createComponent(this.childComponent, 0);
         Object.keys(context).forEach(
           (key: string) => (this.modalContext.instance[key] = context[key]),
@@ -55,12 +48,12 @@ export class ModalComponent implements OnInit {
     );
   }
 
-  // @HostListener('window:keyup.esc')
   @HostListener('window:keyup', ['$event.keyCode'])
   public close(code: number = 27): void {
     if (code !== 27) {
       return;
     }
+    // tslint:disable-next-line: no-unused-expression
     this.modalContext && this.modalContext.destroy();
     this.isOpen = false;
   }
