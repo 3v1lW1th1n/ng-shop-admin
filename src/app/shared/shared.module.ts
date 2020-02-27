@@ -1,3 +1,4 @@
+import { CategoriesService } from './services/categories.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -8,7 +9,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsDialogComponent } from '../content/products/products-dialog/products-dialog.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
@@ -28,7 +29,7 @@ import { ProductsService } from './services/products.service';
     MatIconModule,
     MatTableModule,
     MatSortModule,
-
+    MatExpansionModule,
     MatInputModule,
     MatGridListModule,
     MatPaginatorModule,
@@ -49,6 +50,7 @@ export class SharedModule {
       providers: [
         ValidatorsService,
         ProductsService,
+        CategoriesService,
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,

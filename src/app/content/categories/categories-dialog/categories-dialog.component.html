@@ -1,0 +1,24 @@
+<form [formGroup]="form" class="popup-wrapper">
+  <div class="category-form">
+    <h2 class="category-form-title ">Edit category</h2>
+    <label class="category-form-label">Category name</label>
+
+    <input
+      formControlName="name"
+      class="category-form-input"
+      type="text"
+      placeholder="Name"
+    />
+    <div class="btnWrapp">
+      <button
+        class="btn-inv"
+        [disabled]="form.invalid"
+        (click)="save({ isEdit: isEdit, value: form.value })"
+      >
+        Save
+      </button>
+
+      <button class="btn-inv" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</form>

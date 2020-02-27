@@ -1,9 +1,9 @@
 name: Deploy
 
 on:
-  pull-request:
+  pull_request:
     branches:
-      - master
+      - develop
 
 jobs:
   build:
@@ -22,7 +22,8 @@ jobs:
       - name: build
         run: |
           npm install
-          npm run build
+          npm run build -- --configuration=production --base-href /ng-shop-admin/
+          cp ./dist/shop-admin/index.html ./dist/shop-admin/404.html
         env:
           CI: true
       - name: Deploy
@@ -30,4 +31,4 @@ jobs:
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./
+          PUBLISH_DIR: ./dist/shop-admin

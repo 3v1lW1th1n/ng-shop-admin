@@ -6,8 +6,8 @@
     "shop-admin": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "sass"
+        "@ngrx/schematics:component": {
+          "styleext": "sass"
         }
       },
       "root": "",
@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "shop-admin"
+  "defaultProject": "shop-admin",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

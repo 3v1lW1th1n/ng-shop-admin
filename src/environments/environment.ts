@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8090',
+  // baseUrl: 'http://localhost:8090',
+  baseUrl: 'https://ng-course-api.herokuapp.com',
 };
 
 /*
