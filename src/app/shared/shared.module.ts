@@ -8,7 +8,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductsDialogComponent } from '../content/products/products-dialog/products-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';

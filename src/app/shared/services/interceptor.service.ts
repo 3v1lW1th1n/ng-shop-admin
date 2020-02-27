@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpHandler } from '@angular/common/http';
 import {
   HttpEvent,
   HttpHeaders,
@@ -7,7 +7,7 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BASE_URL_TOKEN } from 'src/app/config';
 export interface IRes {

@@ -1,16 +1,16 @@
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable, of, from, EMPTY } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { CategoriesService } from '@shared/services/categories.service';
 import {
+  createSubCategoryPending,
+  createSubCategorySuccess,
+  updateSubCategoryPending,
+  updateSubCategorySuccess,
   deleteSubCategoryPending,
   deleteSubCategorySuccess,
-  createSubCategorySuccess,
-  createSubCategoryPending,
-  updateSubCategorySuccess,
-  updateSubCategoryPending,
-} from '../actions/sub-category.action';
+} from '@store-category/actions/sub-category.action';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,7 @@ export class SubCategoriesEffects {
             return createSubCategorySuccess({ subCategory });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -46,6 +47,7 @@ export class SubCategoriesEffects {
             return updateSubCategorySuccess({ subCategory });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -62,6 +64,7 @@ export class SubCategoriesEffects {
             return deleteSubCategorySuccess({ subCategory });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),

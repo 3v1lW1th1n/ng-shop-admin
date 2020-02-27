@@ -1,3 +1,9 @@
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, EMPTY } from 'rxjs';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
+import { ProductsService } from '@shared/services/products.service';
+import { IProduct } from '@store-product/reducers/product.reducer';
 import {
   getProductsPending,
   getProductsSuccess,
@@ -7,13 +13,7 @@ import {
   updateProductSuccess,
   deleteProductPending,
   deleteProductSuccess,
-} from './../actions/product.action';
-import { switchMap, map, catchError } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { Observable, of, from, EMPTY } from 'rxjs';
-import { createEffect, ofType, Actions } from '@ngrx/effects';
-import { ProductsService } from '@shared/services/products.service';
-import { IProduct } from '../reducers/product.reducer';
+} from '@store-product/actions/product.action';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +36,7 @@ export class ProductsEffects {
             return getProductsSuccess({ products, hasMore: true });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -52,6 +53,7 @@ export class ProductsEffects {
             return createProductSuccess({ product });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -68,6 +70,7 @@ export class ProductsEffects {
             return updateProductSuccess({ product });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -84,6 +87,7 @@ export class ProductsEffects {
             return deleteProductSuccess({ product });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),

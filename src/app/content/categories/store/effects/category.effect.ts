@@ -1,4 +1,10 @@
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, EMPTY } from 'rxjs';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
+import { CategoriesService } from '@shared/services/categories.service';
 import {
+  getCategoriesPending,
   getCategoriesSuccess,
   createCategoryPending,
   createCategorySuccess,
@@ -6,13 +12,7 @@ import {
   updateCategorySuccess,
   deleteCategoryPending,
   deleteCategorySuccess,
-} from './../actions/category.action';
-import { switchMap, map, catchError } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { Observable, of, from, EMPTY } from 'rxjs';
-import { createEffect, ofType, Actions } from '@ngrx/effects';
-import { CategoriesService } from '@shared/services/categories.service';
-import { getCategoriesPending } from '../actions/category.action';
+} from '@store-category/actions/category.action';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +42,7 @@ export class CategoriesEffects {
             return createCategorySuccess({ category });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -58,6 +59,7 @@ export class CategoriesEffects {
             return updateCategorySuccess({ category });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),
@@ -74,6 +76,7 @@ export class CategoriesEffects {
             return deleteCategorySuccess({ category });
           }),
           catchError(err => {
+            // tslint:disable-next-line: no-console
             console.log(err);
             return EMPTY;
           }),

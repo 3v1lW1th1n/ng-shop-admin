@@ -8,8 +8,8 @@ import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categ
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CategoriesEffects } from './store/effects/category.effect';
-import { reducerCategories } from './store/reducers/category.reducer';
+import { reducerCategories } from '@store-category/reducers/category.reducer';
+import { CategoriesEffects } from '@store-category/effects/category.effect';
 
 @NgModule({
   declarations: [

@@ -1,14 +1,7 @@
-import {
-  switchMap,
-  map,
-  withLatestFrom,
-  catchError,
-  tap,
-} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable, of, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
-import { loginPending } from '../actions/auth.action';
+import { loginPending } from '@store-root/actions/auth.action';
 
 @Injectable({
   providedIn: 'root',

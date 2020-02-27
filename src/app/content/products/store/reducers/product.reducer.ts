@@ -4,20 +4,19 @@ import {
   createSelector,
   createFeatureSelector,
 } from '@ngrx/store';
-// tslint:disable-next-line: max-line-length
+
+import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 import {
   getProductsSuccess,
-  deleteProductSuccess,
   createProductSuccess,
   updateProductSuccess,
-} from '../actions/product.action';
-import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+  deleteProductSuccess,
+} from '@store-product/actions/product.action';
 export interface IProductState {
   items: IProduct[];
   hasMore: boolean;
   loading: boolean;
 }
-
 export interface IProductImage {
   url: string;
   source: string;

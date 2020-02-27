@@ -16,7 +16,10 @@
     "paths": {
       "@shared/*": ["src/app/shared/*"],
       "@modal/*": ["src/app/modal/*"],
-      "@env/*": ["src/environments/*"]
+      "@env/*": ["src/environments/*"],
+      "@store-root/*": ["src/app/store/*"],
+      "@store-product/*": ["src/app/content/products/store/*"],
+      "@store-category/*": ["src/app/content/categories/store/*"]
     }
   },
   "angularCompilerOptions": {

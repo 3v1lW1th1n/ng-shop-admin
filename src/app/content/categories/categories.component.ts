@@ -2,24 +2,25 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CategoriesDialogComponent } from './categories-dialog/categories-dialog.component';
 import { SubCategoriesDialogComponent } from './sub-categories-dialog /sub-categories-dialog.component';
 import { ModalService } from '@modal/modal.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import {
   ICategory,
   ISubcategory,
   selectAllCategories,
-} from './store/reducers/category.reducer';
+} from '@store-category/reducers/category.reducer';
 import {
   getCategoriesPending,
   updateCategoryPending,
   createCategoryPending,
   deleteCategoryPending,
-} from './store/actions/category.action';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+} from '@store-category/actions/category.action';
 import {
   updateSubCategoryPending,
-  deleteSubCategoryPending,
   createSubCategoryPending,
-} from './store/actions/sub-category.action';
+  deleteSubCategoryPending,
+} from '@store-category/actions/sub-category.action';
+import { IStore } from '@store-root/reducers';
 
 @Component({
   selector: 'app-categories',
@@ -37,7 +38,10 @@ export class CategoriesComponent implements OnInit {
   public data: any;
   public categories$!: Observable<ICategory[]>;
 
-  constructor(private _modalService: ModalService, private store: Store<any>) {}
+  constructor(
+    private _modalService: ModalService,
+    private store: Store<IStore>,
+  ) {}
 
   ngOnInit() {
     this.store.select(selectAllCategories).subscribe(categories => {
@@ -75,7 +79,7 @@ export class CategoriesComponent implements OnInit {
   public deleteCategory(category: ICategory): void {
     this.store.dispatch(deleteCategoryPending({ category }));
   }
-  ////////// SUBCATEGORY
+  /// SUBCATEGORY
 
   public editSubCategory(category?: ICategory, subCategory?: ISubcategory) {
     this._modalService.open({

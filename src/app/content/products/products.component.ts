@@ -1,16 +1,21 @@
-import { ProductsService } from './../../shared/services/products.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductsDialogComponent } from './products-dialog/products-dialog.component';
 import { ModalService } from '@modal/modal.service';
-import { IProduct, selectAllProducts } from './store/reducers/product.reducer';
 import { Store } from '@ngrx/store';
+
+import { FormControl } from '@angular/forms';
+import {
+  IProduct,
+  selectAllProducts,
+} from '@store-product/reducers/product.reducer';
+import { ProductsService } from '@shared/services/products.service';
 import {
   getProductsPending,
   deleteProductPending,
-  createProductPending,
   updateProductPending,
-} from './store/actions/product.action';
-import { FormControl } from '@angular/forms';
+  createProductPending,
+} from '@store-product/actions/product.action';
+import { IStore } from '@store-root/reducers';
 
 @Component({
   selector: 'app-products',
@@ -27,7 +32,10 @@ export class ProductsComponent implements OnInit {
   public hasMore = true;
   public loader: boolean;
   public search = new FormControl('');
-  constructor(private _modalService: ModalService, private store: Store<any>) {}
+  constructor(
+    private _modalService: ModalService,
+    private store: Store<IStore>,
+  ) {}
   ngOnInit() {
     this.store.select(selectAllProducts).subscribe(products => {
       this.products = products;

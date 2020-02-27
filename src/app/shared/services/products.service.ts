@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IProduct } from 'src/app/content/products/store/reducers/product.reducer';
+import { IProduct } from '@store-product/reducers/product.reducer';
 
 @Injectable()
 export class ProductsService {
